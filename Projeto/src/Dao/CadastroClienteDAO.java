@@ -29,8 +29,10 @@ public class CadastroClienteDAO {
         return "Excluido com sucesso";
     }
     
-    public static void alterar(CadastroClienteModel a){
-        //clientes.get(a);
+    public static String alterar(CadastroClienteModel a,int linha){
+        clientes.remove(linha);
+        clientes.add(linha, a);
+        return "Alterado com sucesso";
     }
     
     public static List<CadastroClienteModel> listar(){

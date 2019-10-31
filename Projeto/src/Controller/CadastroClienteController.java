@@ -31,8 +31,9 @@ public class CadastroClienteController {
         return CadastroClienteDAO.Excluir(linha);
     }
     
-    public static String alterar(String nome,String sobrenome,String data,String sexo,String cpf,String rg,String telefone){
-        return "";
+    public static String alterar(String nome,String sobrenome,String data,String sexo,String cpf,String rg,String telefone,int linha){
+        CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data, sexo, cpf, rg, telefone);
+        return CadastroClienteDAO.alterar(s,linha);
     }
     
 }
