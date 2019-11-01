@@ -9,6 +9,8 @@ import Controller.CadastroClienteController;
 import Model.CadastroClienteModel;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -79,7 +81,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
         jLabel1.setText("Nome");
 
-        jLabel2.setText("Sobrenome");
+        jLabel2.setText("Ultimo sobrenome");
 
         jLabel3.setText("Data de Nascimento");
 
@@ -109,7 +111,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
         jcomboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Masculino", "Feminino", "Outros" }));
 
-        jLabel15.setText("Telefone");
+        jLabel15.setText("Telefone celular");
 
         try {
             txtTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
@@ -204,7 +206,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         jButton6.setBackground(new java.awt.Color(26, 40, 80));
         jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-usuário-masculino-25 (2).png"))); // NOI18N
-        jButton6.setText("Cadastrar Cliente");
+        jButton6.setText("Menu");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
@@ -235,6 +237,11 @@ public class CadastroClienteView extends javax.swing.JFrame {
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-baixar-relatório-gráfico-25.png"))); // NOI18N
         jButton9.setText("Relatório");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setBackground(new java.awt.Color(26, 40, 80));
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
@@ -404,36 +411,47 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+        MenuView a = new MenuView();
+        a.setVisible(true);
+        this.dispose();      
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
+        EstoqueView a = new EstoqueView();
+        a.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
+        Vendas a = new Vendas();
+        a.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String nome, sobrenome, data, sexo, cpf, rg, telefone;
+        if(validaNome() && validaSobrenome()) {
+            String nome, sobrenome, data, sexo, cpf, rg, telefone;
 
-        nome = txtNome.getText();
-        sobrenome = txtSobrenome.getText();
-        data = txtData.getText();
-        sexo = jcomboSexo.getSelectedItem().toString();
-        cpf = txtCPF.getText();
-        rg = txtRG.getText();
-        telefone = txtTelefone.getText();
+            nome = txtNome.getText();
+            sobrenome = txtSobrenome.getText();
+            data = txtData.getText();
+            sexo = jcomboSexo.getSelectedItem().toString();
+            cpf = txtCPF.getText();
+            rg = txtRG.getText();
+            telefone = txtTelefone.getText();
 
-        JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
+            JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
 
-        CarregarJTable();
-        limpaFormulario();
+            CarregarJTable();
+            limpaFormulario();
+        } else {
+            JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
+                    + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
+        }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -459,13 +477,14 @@ public class CadastroClienteView extends javax.swing.JFrame {
         txtCPF.setText(jtable.getModel().getValueAt(jtable.getSelectedRow(), 4).toString());
         txtRG.setText(jtable.getModel().getValueAt(jtable.getSelectedRow(), 5).toString());
         txtTelefone.setText(jtable.getModel().getValueAt(jtable.getSelectedRow(), 6).toString());
-        
+
         btnAtualizar.setEnabled(true);
         btnCadastrar.setEnabled(false);
-        
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        if(validaNome() && validaSobrenome()){
         String nome, sobrenome, data, sexo, cpf, rg, telefone;
 
         nome = txtNome.getText();
@@ -476,11 +495,21 @@ public class CadastroClienteView extends javax.swing.JFrame {
         rg = txtRG.getText();
         telefone = txtTelefone.getText();
         int linha = jtable.getSelectedRow();
-        
-        JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone,linha));
+
+        JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone, linha));
         CarregarJTable();
         limpaFormulario();
+        } else {
+            JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
+                    + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
+        }
     }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        RelatorioView a = new RelatorioView();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -526,7 +555,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         DefaultTableModel tmClientes = (DefaultTableModel) jtable.getModel();
 
         for (CadastroClienteModel c : banco) {
-            tmClientes.addRow(new String[]{c.getNome(),c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
+            tmClientes.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
         }
 
     }
@@ -541,8 +570,8 @@ public class CadastroClienteView extends javax.swing.JFrame {
             tmClientes.removeRow(i);
         }
     }
-    
-    public void limpaFormulario(){
+
+    public void limpaFormulario() {
         txtNome.setText("");
         txtSobrenome.setText("");
         txtData.setText("");
@@ -550,9 +579,33 @@ public class CadastroClienteView extends javax.swing.JFrame {
         txtCPF.setText("");
         txtRG.setText("");
         txtTelefone.setText("");
-        
+
         btnAtualizar.setEnabled(false);
         btnCadastrar.setEnabled(true);
+    }
+
+    public boolean validaNome() {
+        String rE = "[A-Z]{1}[a-z]+";
+	String nome = txtNome.getText();
+	boolean b; 
+	
+	b = nome.matches(rE);  
+        Pattern p = Pattern.compile(rE);
+	Matcher m = p.matcher(nome);
+	b = m.matches();
+        return b;
+    }
+    
+     public boolean validaSobrenome() {
+        String rE = "[A-Z]{1}[a-z]+";
+	String nome = txtSobrenome.getText();
+	boolean b; 
+	
+	b = nome.matches(rE);  
+        Pattern p = Pattern.compile(rE);
+	Matcher m = p.matcher(nome);
+	b = m.matches();
+        return b;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
