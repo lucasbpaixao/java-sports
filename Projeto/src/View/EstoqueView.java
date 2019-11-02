@@ -16,6 +16,7 @@ public class EstoqueView extends javax.swing.JFrame {
      */
     public EstoqueView() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
