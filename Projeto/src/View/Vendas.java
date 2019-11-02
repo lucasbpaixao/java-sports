@@ -5,7 +5,6 @@
  */
 package View;
 
-
 import java.awt.event.KeyEvent;
 import javax.swing.table.DefaultTableModel;
 
@@ -138,7 +137,7 @@ public class Vendas extends javax.swing.JFrame {
         btnCliente.setBackground(new java.awt.Color(26, 40, 80));
         btnCliente.setForeground(new java.awt.Color(255, 255, 255));
         btnCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-usuário-masculino-25 (2).png"))); // NOI18N
-        btnCliente.setText("Cadastrar Cliente");
+        btnCliente.setText("Clientes");
         btnCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClienteActionPerformed(evt);
@@ -148,22 +147,37 @@ public class Vendas extends javax.swing.JFrame {
         btnProduto.setBackground(new java.awt.Color(26, 40, 80));
         btnProduto.setForeground(new java.awt.Color(255, 255, 255));
         btnProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-produto-25 (1).png"))); // NOI18N
-        btnProduto.setText("Cadastrar Produto");
+        btnProduto.setText("Produtos");
 
         btnEstoque.setBackground(new java.awt.Color(26, 40, 80));
         btnEstoque.setForeground(new java.awt.Color(255, 255, 255));
         btnEstoque.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-caixa-25 (1).png"))); // NOI18N
         btnEstoque.setText("Estoque");
+        btnEstoque.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEstoqueActionPerformed(evt);
+            }
+        });
 
         btnRelatorio.setBackground(new java.awt.Color(26, 40, 80));
         btnRelatorio.setForeground(new java.awt.Color(255, 255, 255));
         btnRelatorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-baixar-relatório-gráfico-25.png"))); // NOI18N
-        btnRelatorio.setText("Relatório");
+        btnRelatorio.setText("Relatórios");
+        btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRelatorioActionPerformed(evt);
+            }
+        });
 
         btnVendas.setBackground(new java.awt.Color(26, 40, 80));
         btnVendas.setForeground(new java.awt.Color(255, 255, 255));
         btnVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-vendas-totais-25.png"))); // NOI18N
-        btnVendas.setText("Vendas");
+        btnVendas.setText("Menu");
+        btnVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -188,17 +202,17 @@ public class Vendas extends javax.swing.JFrame {
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(49, 49, 49)
+                .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(btnCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
                 .addComponent(btnRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(296, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -268,7 +282,7 @@ public class Vendas extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
@@ -281,13 +295,33 @@ public class Vendas extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        
-        model.addRow(new String[] {String.valueOf(comboCliente.getSelectedItem()), String.valueOf(comboProduto.getSelectedItem()), String.valueOf(spinnerQtd.getValue())});
+
+        model.addRow(new String[]{String.valueOf(comboCliente.getSelectedItem()), String.valueOf(comboProduto.getSelectedItem()), String.valueOf(spinnerQtd.getValue())});
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
-    
+        CadastroClienteView a = new CadastroClienteView();
+        a.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
+        MenuView a = new MenuView();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnVendasActionPerformed
+
+    private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
+        EstoqueView a = new EstoqueView();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnEstoqueActionPerformed
+
+    private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
+        RelatorioView a = new RelatorioView();
+        a.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRelatorioActionPerformed
 
     /**
      * @param args the command line arguments

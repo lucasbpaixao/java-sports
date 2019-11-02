@@ -133,8 +133,11 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagens/icons8-usu&#xe1;rio-masculino-25 (2).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar Cliente"/>
+            <Property name="text" type="java.lang.String" value="Clientes"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
@@ -147,7 +150,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagens/icons8-produto-25 (1).png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Cadastrar Produto"/>
+            <Property name="text" type="java.lang.String" value="Produtos"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
@@ -163,6 +166,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Estoque"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
@@ -175,8 +181,11 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/Imagens/icons8-baixar-relat&#xf3;rio-gr&#xe1;fico-25.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Relat&#xf3;rio"/>
+            <Property name="text" type="java.lang.String" value="Relat&#xf3;rios"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
@@ -191,6 +200,9 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Vendas"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
