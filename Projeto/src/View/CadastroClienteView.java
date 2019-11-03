@@ -451,7 +451,8 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        if(validaNome() && validaSobrenome()) {
+        if(validaPreenchimento()){
+        if (validaNome() && validaSobrenome()) {
             String nome, sobrenome, data, sexo, cpf, rg, telefone;
 
             nome = txtNome.getText();
@@ -469,6 +470,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
                     + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
+        }
+        }else{
+        JOptionPane.showMessageDialog(this, "Preencha todos os valores");
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -502,21 +506,21 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        if(validaNome() && validaSobrenome()){
-        String nome, sobrenome, data, sexo, cpf, rg, telefone;
+        if (validaNome() && validaSobrenome()) {
+            String nome, sobrenome, data, sexo, cpf, rg, telefone;
 
-        nome = txtNome.getText();
-        sobrenome = txtSobrenome.getText();
-        data = txtData.getText();
-        sexo = jcomboSexo.getSelectedItem().toString();
-        cpf = txtCPF.getText();
-        rg = txtRG.getText();
-        telefone = txtTelefone.getText();
-        int linha = jtable.getSelectedRow();
+            nome = txtNome.getText();
+            sobrenome = txtSobrenome.getText();
+            data = txtData.getText();
+            sexo = jcomboSexo.getSelectedItem().toString();
+            cpf = txtCPF.getText();
+            rg = txtRG.getText();
+            telefone = txtTelefone.getText();
+            int linha = jtable.getSelectedRow();
 
-        JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone, linha));
-        CarregarJTable();
-        limpaFormulario();
+            JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone, linha));
+            CarregarJTable();
+            limpaFormulario();
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
                     + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
@@ -604,26 +608,42 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
     public boolean validaNome() {
         String rE = "[A-Z]{1}[a-z]+";
-	String nome = txtNome.getText();
-	boolean b; 
-	
-	b = nome.matches(rE);  
+        String nome = txtNome.getText();
+        boolean b;
+
+        b = nome.matches(rE);
         Pattern p = Pattern.compile(rE);
-	Matcher m = p.matcher(nome);
-	b = m.matches();
+        Matcher m = p.matcher(nome);
+        b = m.matches();
         return b;
     }
-    
-     public boolean validaSobrenome() {
+
+    public boolean validaSobrenome() {
         String rE = "[A-Z]{1}[a-z]+";
-	String nome = txtSobrenome.getText();
-	boolean b; 
-	
-	b = nome.matches(rE);  
+        String nome = txtSobrenome.getText();
+        boolean b;
+
+        b = nome.matches(rE);
         Pattern p = Pattern.compile(rE);
-	Matcher m = p.matcher(nome);
-	b = m.matches();
+        Matcher m = p.matcher(nome);
+        b = m.matches();
         return b;
+    }
+
+    public boolean validaPreenchimento() {
+        String nome, sobrenome, data, sexo, cpf, rg, telefone;
+        
+        nome = txtNome.getText();
+        sobrenome = txtSobrenome.getText();
+        data = txtData.getText();
+        sexo = jcomboSexo.getSelectedItem().toString();
+        cpf = txtCPF.getText();
+        rg = txtRG.getText();
+        telefone =txtTelefone.getText();
+        
+        if((nome == " ") || (sobrenome == " ") || (data == " ") || (sexo == " ") ||(cpf == " ") || (rg == " ") || (telefone == " ")){
+            return false;
+        }else return true;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
