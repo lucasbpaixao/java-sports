@@ -5,6 +5,12 @@
  */
 package View;
 
+import Controller.ProdutoController;
+import Model.ProdutoVO;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author esouzaf
@@ -42,6 +48,7 @@ public class EstoqueView extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton6 = new javax.swing.JButton();
+        Carregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,13 +154,10 @@ public class EstoqueView extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Código", "Nome", "Tipo", "Quantidade"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);
@@ -171,6 +175,19 @@ public class EstoqueView extends javax.swing.JFrame {
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-pesquisar-25.png"))); // NOI18N
         jButton6.setText("Pesquisar");
         jButton6.setActionCommand("");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        Carregar.setForeground(new java.awt.Color(0, 0, 102));
+        Carregar.setText("Carregar");
+        Carregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CarregarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,9 +208,11 @@ public class EstoqueView extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jButton6)
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Carregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(8, 8, 8)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -206,7 +225,8 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Carregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -248,6 +268,59 @@ public class EstoqueView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void CarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarregarActionPerformed
+        // TODO add your handling code here
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setColumnIdentifiers(new Object[]{"Codigo", "Nome", "Tipo", "Quantidade"});
+        String codigo = "";
+        int count = 0;
+        if (model.getRowCount() > 0) {
+            for (int i = model.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+        }
+
+        List<ProdutoVO> lis = ProdutoController.list();
+        for (ProdutoVO p : lis) {
+            count++;
+            codigo = "" + count + "";
+            String produto = p.getProduto();
+            String preco = "" + p.getPreco() + "";
+            String quantidade = "" + p.getQuantidade() + "";
+            model.addRow(new String[]{codigo, produto, preco, quantidade});
+        }
+    }//GEN-LAST:event_CarregarActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        String dado = jTextField1.getText();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        List<ProdutoVO> pesquisa = ProdutoController.pesquisar(dado);
+        List<ProdutoVO> list = ProdutoController.list();
+        String codigo = "";
+        int count = 0;
+        
+        if (dado.equals(null) || dado.equals("")) {
+            for (int i = model.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+            for (ProdutoVO produtoVO : list) {
+                count++;
+                codigo = ""+count+"";
+                model.addRow(new String[]{codigo, produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
+            }
+            
+            JOptionPane.showMessageDialog(null, "Campo nulo ou vazio.\nDigite novamente.");
+        } else {
+            for (int i = model.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+            for (ProdutoVO produtoVO : pesquisa) {
+                model.addRow(new String[]{produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
+            }
+        }
+    }//GEN-LAST:event_jButton6ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -284,6 +357,7 @@ public class EstoqueView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Carregar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
