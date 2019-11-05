@@ -31,6 +31,7 @@ public class VendasView extends javax.swing.JFrame {
     private List<ProdutoVO> produtos;
     private List<ProdutoVO> carrinho;
     private List<CadastroClienteModel> clientes;
+    private int[][] quantidadesAtuais;
 
     public VendasView() {
         initComponents();
@@ -38,6 +39,8 @@ public class VendasView extends javax.swing.JFrame {
         produtos = ProdutoController.list();
         clientes = CadastroClienteController.listar();
         carrinho = new ArrayList<>();
+        quantidadesAtuais = new int[produtos.size()][2];
+        populaMatriz();
         preencherCombo();
     }
 
@@ -342,7 +345,7 @@ public class VendasView extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         if (tabela.getRowCount() == 0) {
-            if(txtCPF.getText().equals("   .   .   -  ")){
+            if (txtCPF.getText().equals("   .   .   -  ")) {
                 JOptionPane.showMessageDialog(null, "O Campo CPF Não Pode Ser Vazio", "Preenchimento Invalido", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -355,18 +358,22 @@ public class VendasView extends javax.swing.JFrame {
         ProdutoVO produto = new ProdutoVO("", 0, 0, 0);
         produto = acharProduto(Integer.parseInt(id));
 
-        
         int quantidade = Integer.parseInt(String.valueOf(spinnerQtd.getValue()));
 
-        if(quantidade > produto.getQuantidade()){
-            JOptionPane.showMessageDialog(null, "A Quantidade Vendida Não Pode Ser Maior Que a Quantidade Que Está No Estoque", "Erro de Quantidade", JOptionPane.ERROR_MESSAGE);
+        int index = acharNaMatriz(Integer.parseInt(id));
+        double valor = quantidade * produto.getPreco();
+        if (validaQuantidade(index, quantidade)) {
+
+            model.addRow(new String[]{String.valueOf(comboProduto.getSelectedItem()), String.valueOf(quantidade), String.valueOf(valor)});
+
+            produto.setQuantidadeVendida(quantidade);
+            carrinho.add(produto);
+            
+            quantidadesAtuais[index][1] -= quantidade; 
+        } else {
+            JOptionPane.showMessageDialog(null, "A Quantidade Informada não é Equivalente ao estoque. \nQuantidade em Estoque: " + quantidadesAtuais[index][1], "Erro de Quantidade", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        double valor = quantidade * produto.getPreco();
-        model.addRow(new String[]{String.valueOf(comboProduto.getSelectedItem()), String.valueOf(quantidade), String.valueOf(valor)});
-
-        produto.setQuantidadeVendida(quantidade);
-        carrinho.add(produto);
 
         mudaValor(valor);
 
@@ -410,14 +417,13 @@ public class VendasView extends javax.swing.JFrame {
         venda.setData(new Date(System.currentTimeMillis()));
         venda.setValorTotal(Double.parseDouble(lblValorToral.getText()));
         CadastroClienteModel cliente = acharCliente(txtCPF.getText());
-        if(cliente != null){
+        if (cliente != null) {
             venda.setCliente(cliente);
-        }else{
+        } else {
             JOptionPane.showMessageDialog(null, "Não Existe Cliente Com Esse CPF", "Cliente Inexistente", JOptionPane.ERROR_MESSAGE);
             txtCPF.enable(true);
             return;
         }
-        
 
         for (ProdutoVO produto : carrinho) {
             System.out.println(produto.getProduto());
@@ -554,5 +560,31 @@ public class VendasView extends javax.swing.JFrame {
     private void mudaValor(double valor) {
         double valorTotal = valor + Double.parseDouble(lblValorToral.getText());
         lblValorToral.setText(String.valueOf(valorTotal));
+    }
+
+    private void populaMatriz() {
+        int i = 0;
+        for (ProdutoVO p : produtos) {
+            quantidadesAtuais[i][0] = p.getId();
+            quantidadesAtuais[i][1] = p.getQuantidade();
+            i++;
+        }
+    }
+
+    private int acharNaMatriz(int id) {
+        for (int i = 0; i < quantidadesAtuais.length; i++) {
+            if (quantidadesAtuais[i][0] == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    private boolean validaQuantidade(int index, int quantidade) {
+        if (quantidadesAtuais[index][1] < quantidade) {
+            return false;
+        }
+
+        return true;
     }
 }

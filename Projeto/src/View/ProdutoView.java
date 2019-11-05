@@ -3,9 +3,18 @@ package View;
 import Controller.ProdutoController;
 import Dao.ProdutoDao;
 import Model.ProdutoVO;
+import View.CadastroClienteView;
+import View.EstoqueView;
+import View.RelatorioView;
+import View.VendasView;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.PlainDocument;
 import javax.swing.text.StyledEditorKit;
 
 /**
@@ -20,6 +29,7 @@ public class ProdutoView extends javax.swing.JFrame {
     public ProdutoView() {
         initComponents();
         setLocationRelativeTo(null);
+        TFpreco.setDocument(new validacaopreco());
     }
 
     /**
@@ -43,10 +53,10 @@ public class ProdutoView extends javax.swing.JFrame {
         JBadicionar = new javax.swing.JButton();
         TFquantidade = new javax.swing.JSpinner();
         jLabel1 = new javax.swing.JLabel();
-        TFpreco = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         JBalterar = new javax.swing.JButton();
+        TFpreco = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -144,6 +154,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        TFproduto.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         TFproduto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TFprodutoActionPerformed(evt);
@@ -168,15 +179,9 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        TFquantidade.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
+        TFquantidade.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         jLabel1.setText("Produto");
-
-        TFpreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TFprecoActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Preço");
 
@@ -208,20 +213,20 @@ public class ProdutoView extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(TFproduto, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TFpreco, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
-                                .addGap(18, 18, 18)
+                                    .addComponent(jLabel2)
+                                    .addComponent(TFpreco, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(33, 33, 33)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(TFquantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
                                         .addComponent(JBadicionar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addContainerGap(12, Short.MAX_VALUE))))
+                                        .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel3))))
+                        .addContainerGap(20, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,8 +241,8 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(TFproduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(JBadicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(TFquantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TFpreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(TFpreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(25, 25, 25)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,40 +386,43 @@ public class ProdutoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBpesquisarActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_JBpesquisarActionPerformed
 
     private void TFprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFprodutoActionPerformed
-        // TODO add your handling code here:
+   // TODO add your handling code here:
     }//GEN-LAST:event_TFprodutoActionPerformed
-
-    private void TFprecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFprecoActionPerformed
-
-        Float.parseFloat(TFpreco.getText());
-
-    }//GEN-LAST:event_TFprecoActionPerformed
 
     private void JBadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBadicionarActionPerformed
 
-        String produto = TFproduto.getText();
-        String preco = TFpreco.getText();
-        String quantidade = String.valueOf(TFquantidade.getValue());
+        if (validaProduto()) {
+            
+            
+            
+            
+            String produto = TFproduto.getText();
+            String preco = TFpreco.getText();
+            String quantidade = String.valueOf(TFquantidade.getValue());
 
-        ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0);
+            ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0);
 
-        ProdutoController.cadastroDeProdutos(c);
+            ProdutoController.cadastroDeProdutos(c);
 
-        System.out.println(c);
+            System.out.println(c);
+            TFproduto.setText("");
+            TFpreco.setText("");
+            TFquantidade.setValue(0);
 
-        JOptionPane.showMessageDialog(this, "Produto Cadrastrado com Sucesso");
+            DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
 
-        TFproduto.setText("");
-        TFpreco.setText("");
-        TFquantidade.setValue(0);
+            model.addRow(new String[]{produto, preco, quantidade});
 
-        DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
-
-        model.addRow(new String[]{produto, preco, quantidade});
+            JOptionPane.showMessageDialog(this, "Produto Cadrastrado com Sucesso");
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "                                                       Nome ou preço estão Invalidos !!! \n"
+                    + "Atenção: Os nomes devem começar com letra maiuscula e devem conter somente letras sem acento!!!");
+        }
 
 
     }//GEN-LAST:event_JBadicionarActionPerformed
@@ -497,6 +505,7 @@ public class ProdutoView extends javax.swing.JFrame {
             for (ProdutoVO produtoVO : Pesquisinha) {
                 model.addRow(new String[]{produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
             }
+            
         } else {
             List<ProdutoVO> lista = ProdutoController.list();
 
@@ -540,6 +549,32 @@ public class ProdutoView extends javax.swing.JFrame {
         a.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
+
+    public boolean validaProduto() {
+        String valida = "[A-Z]{1}[a-z]+";
+        String Produto = TFproduto.getText();
+        boolean validacao;
+
+        validacao = Produto.matches(valida);
+        Pattern v = Pattern.compile(valida);
+        Matcher m = v.matcher(Produto);
+        validacao = m.matches();
+         TFproduto.getText().toUpperCase();
+        return validacao;
+    }
+    
+    
+
+   
+    public class validacaopreco extends PlainDocument{
+
+        @Override
+        public void insertString(int i, String string, AttributeSet as) throws BadLocationException {
+            super.insertString(i, string.replaceAll("[^0-9]", ""), as);
+        }
+        
+        
+    }
 
     /**
      * @param args the command line arguments
