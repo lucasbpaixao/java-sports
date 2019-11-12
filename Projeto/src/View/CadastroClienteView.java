@@ -50,7 +50,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         txtData = new javax.swing.JFormattedTextField();
         txtCPF = new javax.swing.JFormattedTextField();
         txtRG = new javax.swing.JFormattedTextField();
-        jcomboSexo = new javax.swing.JComboBox<String>();
+        jcomboSexo = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JFormattedTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -109,7 +109,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
-        jcomboSexo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Masculino", "Feminino", "Outros" }));
+        jcomboSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "Masculino", "Feminino", "Outros" }));
 
         jLabel15.setText("Telefone celular");
 
@@ -315,7 +315,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
         btnAlterar.setForeground(new java.awt.Color(0, 0, 102));
         btnAlterar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-alterar-25.png"))); // NOI18N
-        btnAlterar.setText("Alterar");
+        btnAlterar.setText("Preencher Campos");
         btnAlterar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarActionPerformed(evt);
@@ -376,7 +376,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -419,7 +419,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
