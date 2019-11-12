@@ -11,9 +11,10 @@ package Model;
  */
 public class CadastroClienteModel {
 
-    private String nome, sobrenome, data, sexo,cpf, rg, telefone;
+    private String nome, sobrenome, data, sexo, rg, telefone;
+    private long cpf;
     
-    public CadastroClienteModel(String nome,String sobrenome,String data,String sexo,String cpf,String rg,String telefone){
+    public CadastroClienteModel(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone){
         
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -40,7 +41,7 @@ public class CadastroClienteModel {
         return sexo;
     }
 
-    public String getCpf() {
+    public long getCpf() {
         return cpf;
     }
 
@@ -68,7 +69,7 @@ public class CadastroClienteModel {
         this.sexo = sexo;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(long cpf) {
         this.cpf = cpf;
     }
 

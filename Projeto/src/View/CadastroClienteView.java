@@ -453,19 +453,19 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if(validaPreenchimento()){
         if (validaNome() && validaSobrenome()) {
-            String nome, sobrenome, data, sexo, cpf, rg, telefone;
-
+            String nome, sobrenome, data, sexo, rg, telefone;
+            long cpf;
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
             data = txtData.getText();
             sexo = jcomboSexo.getSelectedItem().toString();
-            cpf = txtCPF.getText();
+            cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
             telefone = txtTelefone.getText();
 
             JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
 
-            CarregarJTable();
+            //CarregarJTable();
             limpaFormulario();
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
@@ -482,7 +482,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, CadastroClienteController.excluir(linhaSelecionada));
 
-        CarregarJTable();
+        //CarregarJTable();
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -507,19 +507,19 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (validaNome() && validaSobrenome()) {
-            String nome, sobrenome, data, sexo, cpf, rg, telefone;
-
+            String nome, sobrenome, data, sexo, rg, telefone;
+            long cpf;
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
             data = txtData.getText();
             sexo = jcomboSexo.getSelectedItem().toString();
-            cpf = txtCPF.getText();
+            cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
             telefone = txtTelefone.getText();
             int linha = jtable.getSelectedRow();
 
             JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone, linha));
-            CarregarJTable();
+            //CarregarJTable();
             limpaFormulario();
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
@@ -569,7 +569,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         });
     }
 
-    public void CarregarJTable() {
+   /* public void CarregarJTable() {
 
         limparTabela();
         List<CadastroClienteModel> banco = listar();
@@ -580,7 +580,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
             tmClientes.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
         }
 
-    }
+    }*/
 
     public List<CadastroClienteModel> listar() {
         return CadastroClienteController.listar();
