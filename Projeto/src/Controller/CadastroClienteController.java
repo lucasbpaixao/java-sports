@@ -8,6 +8,7 @@ package Controller;
 import Dao.CadastroClienteDAO;
 import Model.CadastroClienteModel;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class CadastroClienteController {
     
-    public static String Salvar(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone){
+    public static String Salvar(String nome,String sobrenome,Date data,String sexo,long cpf,String rg,String telefone){
         CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data,sexo,cpf, rg, telefone);
         
         return CadastroClienteDAO.Cadastro(s);
@@ -30,7 +31,7 @@ public class CadastroClienteController {
         return CadastroClienteDAO.Excluir(linha);
     }
     
-    public static String alterar(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone,int linha){
+    public static String alterar(String nome,String sobrenome,Date data,String sexo,long cpf,String rg,String telefone,int linha){
         CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data, sexo, cpf, rg, telefone);
         return CadastroClienteDAO.alterar(s,linha);
     }

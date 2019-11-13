@@ -13,6 +13,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import DAOFactory.DAOFactory;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -453,11 +459,13 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if(validaPreenchimento()){
         if (validaNome() && validaSobrenome()) {
-            String nome, sobrenome, data, sexo, rg, telefone;
+            String nome, sobrenome,sexo, rg, telefone;
             long cpf;
+            Date data = new Date();
+            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
-            data = txtData.getText();
+            data = df.parse(txtData.getText());
             sexo = jcomboSexo.getSelectedItem().toString();
             cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
@@ -466,6 +474,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
 
             //CarregarJTable();
+            CarregarBanco();
             limpaFormulario();
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
@@ -483,7 +492,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, CadastroClienteController.excluir(linhaSelecionada));
 
         //CarregarJTable();
-
+        CarregarBanco();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
@@ -509,17 +518,19 @@ public class CadastroClienteView extends javax.swing.JFrame {
         if (validaNome() && validaSobrenome()) {
             String nome, sobrenome, data, sexo, rg, telefone;
             long cpf;
+            Date dataAtualizar;
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
-            data = txtData.getText();
+            dataAtualizar = new Date(txtData.getText());
             sexo = jcomboSexo.getSelectedItem().toString();
             cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
             telefone = txtTelefone.getText();
             int linha = jtable.getSelectedRow();
 
-            JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, data, sexo, cpf, rg, telefone, linha));
+            JOptionPane.showMessageDialog(this, CadastroClienteController.alterar(nome, sobrenome, dataAtualizar, sexo, cpf, rg, telefone, linha));
             //CarregarJTable();
+            CarregarBanco();
             limpaFormulario();
         } else {
             JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
@@ -581,6 +592,21 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
 
     }*/
+    
+    public void CarregarBanco(){
+    limparTabela();
+    
+    Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+                
+        try {
+        conexao = DAOFactory.conexao();
+        
+        instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente"); 
+        }catch(SQLException ex){
+            System.out.println(ex.getMessage());
+        }
+    }
 
     public List<CadastroClienteModel> listar() {
         return CadastroClienteController.listar();

@@ -5,16 +5,19 @@
  */
 package Model;
 
+import java.util.Date;
+
 /**
  *
  * @author raul.stbarreto
  */
 public class CadastroClienteModel {
 
-    private String nome, sobrenome, data, sexo, rg, telefone;
+    private String nome, sobrenome, sexo, rg, telefone;
     private long cpf;
+    private Date data;
     
-    public CadastroClienteModel(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone){
+    public CadastroClienteModel(String nome,String sobrenome,Date data,String sexo,long cpf,String rg,String telefone){
         
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -33,7 +36,7 @@ public class CadastroClienteModel {
         return sobrenome;
     }
 
-    public String getData() {
+    public Date getData() {
         return data;
     }
 
@@ -61,7 +64,7 @@ public class CadastroClienteModel {
         this.sobrenome = sobrenome;
     }
 
-    public void setData(String data) {
+    public void setData(Date data) {
         this.data = data;
     }
 

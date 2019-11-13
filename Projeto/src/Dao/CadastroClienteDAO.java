@@ -11,7 +11,9 @@ import Model.CadastroClienteModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -35,18 +37,21 @@ public class CadastroClienteDAO {
         try {
         conexao = DAOFactory.conexao();
         
-        instrucaoSQL = conexao.prepareStatement("INSERT INTO clientes (nome,sobrenome,dataNascimento,sexo,cpfCliente,rg,telefone) VALUES (?,?,?,?,?,?,?) )");
+        instrucaoSQL = conexao.prepareStatement("INSERT INTO cliente(cpfCliente,nome,sobrenome,dataNascimento,sexo,rg,telefone) VALUES (?,?,?,?,?,?,?)");
         
-        instrucaoSQL.setString(1,a.getNome());
-        instrucaoSQL.setString(2, a.getSobrenome());
-        instrucaoSQL.setString(3,a.getData());
-        instrucaoSQL.setString(4,a.getSexo());
-        instrucaoSQL.setLong(5,a.getCpf());
+        
+        
+        instrucaoSQL.setLong(1,a.getCpf());
+        instrucaoSQL.setString(2,a.getNome());
+        instrucaoSQL.setString(3, a.getSobrenome());
+        instrucaoSQL.setDate(4,java.sql.Date.valueOf(df.format(a.getData())));
+        instrucaoSQL.setString(5,a.getSexo());
         instrucaoSQL.setString(6,a.getRg());
         instrucaoSQL.setString(7,a.getTelefone());
         
+        instrucaoSQL.execute();
         }catch(SQLException ex){
-            System.out.println(ex.getMessage());
+            ex.printStackTrace();
         }
         return "Cadastrado com sucesso";
     }
