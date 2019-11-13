@@ -14,7 +14,7 @@ import Model.UsuarioVO;
  */
 public class UsuarioController {
 
-    public void cadastrarUsuario(UsuarioVO usuario) {
+    public void cadastrarUsuario(UsuarioVO usuario) throws Exception {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.cadastrarUsuario(usuario);
     }

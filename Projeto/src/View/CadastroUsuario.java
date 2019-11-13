@@ -7,6 +7,8 @@ package View;
 
 import Controller.UsuarioController;
 import Model.UsuarioVO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -273,16 +275,11 @@ public class CadastroUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnomeActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        UsuarioVO usuario = new UsuarioVO();
-        
-        usuario.setLogin(txtlogin.getText());
-        usuario.setNome(txtnome.getText());
-        usuario.setEmail(txtemail.getText());
-        usuario.setSenha(txtsenha.getText());
-        
-        UsuarioController usuarioController = new UsuarioController();
-        
-        usuarioController.cadastrarUsuario(usuario);
+        try {
+            cadastrar();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -356,4 +353,17 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField txtnome;
     private javax.swing.JPasswordField txtsenha;
     // End of variables declaration//GEN-END:variables
+
+    private void cadastrar() throws Exception {
+        UsuarioVO usuario = new UsuarioVO();
+        
+        usuario.setLogin(txtlogin.getText());
+        usuario.setNome(txtnome.getText());
+        usuario.setEmail(txtemail.getText());
+        usuario.setSenha(txtsenha.getText());
+        
+        UsuarioController usuarioController = new UsuarioController();
+        
+        usuarioController.cadastrarUsuario(usuario);
+    }
 }
