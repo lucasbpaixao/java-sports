@@ -13,11 +13,10 @@ import java.util.Date;
  */
 public class CadastroClienteModel {
 
-    private String nome, sobrenome, sexo, rg, telefone;
+    private String nome, sobrenome,data, sexo, rg, telefone;
     private long cpf;
-    private Date data;
     
-    public CadastroClienteModel(String nome,String sobrenome,Date data,String sexo,long cpf,String rg,String telefone){
+    public CadastroClienteModel(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone){
         
         this.nome = nome;
         this.sobrenome = sobrenome;
@@ -36,7 +35,7 @@ public class CadastroClienteModel {
         return sobrenome;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
@@ -64,7 +63,7 @@ public class CadastroClienteModel {
         this.sobrenome = sobrenome;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
