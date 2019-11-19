@@ -17,8 +17,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import DAOFactory.DAOFactory;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -459,19 +462,23 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if(validaPreenchimento()){
         if (validaNome() && validaSobrenome()) {
-            String nome, sobrenome,sexo, rg, telefone;
+            String nome, sobrenome,data,sexo, rg, telefone;
             long cpf;
-            Date data = new Date();
-            SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+ 
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
-            data = df.parse(txtData.getText());
+            data = txtData.getText();
             sexo = jcomboSexo.getSelectedItem().toString();
             cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
             telefone = txtTelefone.getText();
 
-            JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
+
+            try {
+                JOptionPane.showMessageDialog(this,CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone));
+            } catch (ParseException ex) {
+                ex.printStackTrace();
+            }
 
             //CarregarJTable();
             CarregarBanco();
@@ -516,12 +523,12 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (validaNome() && validaSobrenome()) {
-            String nome, sobrenome, data, sexo, rg, telefone;
+            String nome, sobrenome,dataAtualizar, data, sexo, rg, telefone;
             long cpf;
-            Date dataAtualizar;
+           
             nome = txtNome.getText();
             sobrenome = txtSobrenome.getText();
-            dataAtualizar = new Date(txtData.getText());
+            dataAtualizar = txtData.getText();
             sexo = jcomboSexo.getSelectedItem().toString();
             cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
             rg = txtRG.getText();
