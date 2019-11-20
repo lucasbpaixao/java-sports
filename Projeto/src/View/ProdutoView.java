@@ -79,14 +79,14 @@ public class ProdutoView extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Item", "Preço", "Quantidade"
+                "ID", "Item", "Preço", "Quantidade"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -134,9 +134,9 @@ public class ProdutoView extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(JBalterar1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(JBpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -146,9 +146,11 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JBpesquisar)
-                        .addComponent(JBalterar1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(JBalterar1)
+                            .addComponent(JBpesquisar))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -201,7 +203,7 @@ public class ProdutoView extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
+                .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(Deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -226,7 +228,7 @@ public class ProdutoView extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel3))))
-                        .addContainerGap(20, Short.MAX_VALUE))))
+                        .addContainerGap(21, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,15 +362,15 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(269, 269, 269)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel17)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(274, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(22, 22, 22))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -386,40 +388,38 @@ public class ProdutoView extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void JBpesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBpesquisarActionPerformed
-        
+
     }//GEN-LAST:event_JBpesquisarActionPerformed
 
     private void TFprodutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TFprodutoActionPerformed
-   // TODO add your handling code here:
+        // TODO add your handling code here:
     }//GEN-LAST:event_TFprodutoActionPerformed
 
     private void JBadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBadicionarActionPerformed
 
         if (validaProduto()) {
-            
-            
-            
-            
+
             String produto = TFproduto.getText();
             String preco = TFpreco.getText();
             String quantidade = String.valueOf(TFquantidade.getValue());
 
-            ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0);
+            ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
 
             ProdutoController.cadastroDeProdutos(c);
 
-            System.out.println(c);
-            TFproduto.setText("");
-            TFpreco.setText("");
-            TFquantidade.setValue(0);
-
+            List<ProdutoVO> lista = ProdutoController.list();
             DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
 
-            model.addRow(new String[]{produto, preco, quantidade});
+            for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+            for (ProdutoVO telinh : lista) {
+                model.addRow(new String[]{String.valueOf(telinh.getId()), telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
+            }
 
             JOptionPane.showMessageDialog(this, "Produto Cadrastrado com Sucesso");
-            
-        }else {
+
+        } else {
             JOptionPane.showMessageDialog(this, "                                                       Nome ou preço estão Invalidos !!! \n"
                     + "Atenção: Os nomes devem começar com letra maiuscula e devem conter somente letras sem acento!!!");
         }
@@ -445,7 +445,7 @@ public class ProdutoView extends javax.swing.JFrame {
         String preco = TFpreco.getText();
         String quantidade = String.valueOf(TFquantidade.getValue());
 
-        ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0);
+        ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
 
         ProdutoController.alterar(Tabela.getSelectedRow(), c);
 
@@ -473,23 +473,13 @@ public class ProdutoView extends javax.swing.JFrame {
 
     private void JBalterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBalterar1ActionPerformed
 
-        Tabela.getValueAt(Tabela.getSelectedRow(), 0);
-
-        Tabela.getValueAt(Tabela.getSelectedRow(), 1);
-
-        Tabela.getValueAt(Tabela.getSelectedRow(), 2);
-
-        String Produto = String.valueOf(Tabela.getValueAt(Tabela.getSelectedRow(), 0));
-
-        String preco = String.valueOf(Tabela.getValueAt(Tabela.getSelectedRow(), 1));
-
-        String quantidade = String.valueOf(Tabela.getValueAt(Tabela.getSelectedRow(), 2));
-
-        TFpreco.setText(preco);
-
-        TFproduto.setText(Produto);
-
-        TFquantidade.setValue(Integer.parseInt(quantidade));
+        preencherCampos();
+        
+        
+        
+        
+        
+        
 
     }//GEN-LAST:event_JBalterar1ActionPerformed
 
@@ -505,7 +495,7 @@ public class ProdutoView extends javax.swing.JFrame {
             for (ProdutoVO produtoVO : Pesquisinha) {
                 model.addRow(new String[]{produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
             }
-            
+
         } else {
             List<ProdutoVO> lista = ProdutoController.list();
 
@@ -559,21 +549,29 @@ public class ProdutoView extends javax.swing.JFrame {
         Pattern v = Pattern.compile(valida);
         Matcher m = v.matcher(Produto);
         validacao = m.matches();
-         TFproduto.getText().toUpperCase();
+        TFproduto.getText().toUpperCase();
         return validacao;
     }
-    
-    
 
-   
-    public class validacaopreco extends PlainDocument{
+    private void preencherCampos() {
+       int linhaSelecionada = Tabela.getSelectedRow();
+
+		if (linhaSelecionada != -1) {
+
+			String codigo = Tabela.getValueAt(linhaSelecionada, 0).toString();
+                        
+
+        
+        
+    }
+    }
+    public class validacaopreco extends PlainDocument {
 
         @Override
         public void insertString(int i, String string, AttributeSet as) throws BadLocationException {
             super.insertString(i, string.replaceAll("[^0-9]", ""), as);
         }
-        
-        
+
     }
 
     /**

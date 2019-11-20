@@ -355,7 +355,7 @@ public class VendasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String id = String.valueOf(comboProduto.getSelectedItem()).substring(0, 1);
-        ProdutoVO produto = new ProdutoVO("", 0, 0, 0);
+        ProdutoVO produto = new ProdutoVO("", 0, 0, 0,0);
         produto = acharProduto(Integer.parseInt(id));
 
         int quantidade = Integer.parseInt(String.valueOf(spinnerQtd.getValue()));

@@ -19,37 +19,32 @@ import javax.swing.JOptionPane;
 
 public class ProdutoDao {
 
-    public List<String> Listar() {
+    public List<ProdutoVO> Listar() {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-
-        try{
+        List<ProdutoVO> produtos = new ArrayList<>();
+        try {
             conexao = DAOFactory.conexao();
-            
+
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM produto ");
-            
+
             ResultSet resultado = instrucaoSQL.executeQuery();
-            
-            List<ProdutoVO> produtos = new ArrayList<>();    
-            
-             while (resultado.next()){
-             
-                ProdutoVO produtus = new ProdutoVO(resultado.getString(""), 0, 0, 0)
-                 
-             }
-             
-             
-             
-             
-            
+
+            while (resultado.next()) {
+
+                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+
+                produtos.add(produtus);
+
+            }
+
         } catch (SQLException a) {
             a.printStackTrace();
-        }
-       
-    
 
-        
+        }
+
+        return produtos;
     }
 
     static ArrayList<ProdutoVO> produto = new ArrayList();
@@ -61,12 +56,11 @@ public class ProdutoDao {
         try {
             conexao = DAOFactory.conexao();
 
-            instrucaoSQL = conexao.prepareStatement("INSERT INTO produto (idProduto,nomeProduto,valor,quantidade) VALUES (?,?,?,?)");
+            instrucaoSQL = conexao.prepareStatement("INSERT INTO produto (nomeProduto,valor,quantidade) VALUES (?,?,?)");
 
-            instrucaoSQL.setString(2, contato.getProduto());
-            instrucaoSQL.setLong(3, (long) contato.getPreco());
-            instrucaoSQL.setLong(4, contato.getQuantidade());
-            instrucaoSQL.setInt(1, contato.getId());
+            instrucaoSQL.setString(1, contato.getProduto());
+            instrucaoSQL.setLong(2, (long) contato.getPreco());
+            instrucaoSQL.setLong(3, contato.getQuantidade());
 
             instrucaoSQL.execute();
 
@@ -79,7 +73,7 @@ public class ProdutoDao {
 //public String numeroDeCadastros() {
     //return produto.size() + "";
     //}
-    public void excluir(ProdutoVO excluir) {
+    public void excluir(int id) {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -87,16 +81,13 @@ public class ProdutoDao {
         try {
             conexao = DAOFactory.conexao();
 
-            String SQL = "DELETE FROM produto (idProduto,nomeProduto,valor,quantidade) WHERE (?,?,?,?) ";
+            String SQL = "DELETE FROM produto WHERE idProduto = ?";
 
-            PreparedStatement Excluir = conexao.prepareCall(SQL);
+            PreparedStatement excluir = conexao.prepareCall(SQL);
 
-            Excluir.setString(2, excluir.getProduto());
-            Excluir.setLong(3, (long) excluir.getPreco());
-            Excluir.setLong(4, excluir.getQuantidade());
-            Excluir.setInt(1, excluir.getId());
+            excluir.setInt(1, id);
 
-            Excluir.execute();
+            excluir.execute();
 
         } catch (SQLException a) {
             a.printStackTrace();

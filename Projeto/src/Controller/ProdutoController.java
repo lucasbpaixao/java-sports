@@ -30,7 +30,7 @@ public class ProdutoController {
     }
 
     public static List<ProdutoVO> list() {
-        return dao.list();
+        return dao.Listar();
     }
 
     public static List<ProdutoVO> pesquisar(String nome) {
