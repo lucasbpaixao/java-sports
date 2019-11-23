@@ -7,6 +7,7 @@ package Controller;
 
 import Dao.CadastroClienteDAO;
 import Model.CadastroClienteModel;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,23 +19,31 @@ import java.util.List;
  */
 public class CadastroClienteController {
     
-    public static String Salvar(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone) throws ParseException{
-        CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data,sexo,cpf, rg, telefone);
+    public static String Salvar(String nome,String sobrenome,String data,
+            String sexo,long cpf,String rg,String telefone,String estado,String uf,
+            String cidade,String rua,int numero,int cep) throws ParseException, SQLException{
+        
+        CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data,sexo,cpf, rg, telefone,estado,uf,
+            cidade,rua,numero,cep);
         
         return CadastroClienteDAO.Cadastro(s);
     }
     
-    public static List<CadastroClienteModel> listar(){
-        return CadastroClienteDAO.listar();
+    
+    
+    public static String excluir(long cpf){
+        return CadastroClienteDAO.Excluir(cpf);
     }
     
-    public static String excluir(int linha){
-        return CadastroClienteDAO.Excluir(linha);
-    }
-    
-    public static String alterar(String nome,String sobrenome,String data,String sexo,long cpf,String rg,String telefone,int linha){
-        CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data, sexo, cpf, rg, telefone);
+    public static String alterar(String nome,String sobrenome,String data,
+            String sexo,long cpf,String rg,String telefone,String estado,String uf,
+            String cidade,String rua,int numero,int cep,int linha) throws ParseException, SQLException{
+        
+        CadastroClienteModel s = new CadastroClienteModel(nome, sobrenome, data,sexo,cpf, rg, telefone,estado,uf,
+            cidade,rua,numero,cep);
+        
         return CadastroClienteDAO.alterar(s,linha);
     }
     
 }
+
