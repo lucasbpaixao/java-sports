@@ -19,7 +19,7 @@ public class DAOFactory {
 
         String url = "jdbc:mysql://localhost:3306/artigosEsportivos";
         String user = "root";
-        String password = "";
+        String password = "root";
 
         return DriverManager.getConnection(url, user, password);
     }

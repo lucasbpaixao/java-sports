@@ -45,5 +45,10 @@ public class CadastroClienteController {
         return CadastroClienteDAO.alterar(s,linha);
     }
     
+    public static List<CadastroClienteModel> listar(){
+        
+        return CadastroClienteDAO.listar();
+    }
+    
 }
 

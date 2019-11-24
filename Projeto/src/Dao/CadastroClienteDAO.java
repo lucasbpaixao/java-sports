@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,13 +33,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class CadastroClienteDAO {
 
-    static List<CadastroClienteModel> clientes = new ArrayList();
-
-    /* public static String Cadastro(CadastroClienteModel a){
-        clientes.add(a);
-        return "Cadastrado com sucesso";
-    }
-     */
     public static String Cadastro(CadastroClienteModel a) throws ParseException, SQLException {
         if(CadastroClienteView.CPFigual(a.getCpf())){
         Connection conexao = null;
@@ -142,5 +136,38 @@ public class CadastroClienteDAO {
         }
     }
 
+    public static List<CadastroClienteModel> listar(){
+         Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        List<CadastroClienteModel> clientes = new ArrayList<>();
+        try {
+            conexao = DAOFactory.conexao();
+
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente");
+            rs = instrucaoSQL.executeQuery();
+
+            
+            while (rs.next()) {
+                java.util.Date dataAtual = rs.getDate("dataNascimento");
+                
+                System.out.println(dataAtual);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                
+                CadastroClienteModel cliente;
+                cliente = new CadastroClienteModel(rs.getString("nome"), rs.getString("sobrenome"), dateFormat.format(dataAtual), rs.getString("sexo"), rs.getLong("cpfCliente"), rs.getString("rg"), rs.getString("telefone"), rs.getString("estado_civil"), rs.getString("uf"), rs.getString("cidade"), rs.getString("rua"), rs.getInt("numero"), rs.getInt("CEP"));
+
+                clientes.add(cliente);
+            }
+
+            rs.close();
+            conexao.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return clientes;
+    }
 
 }
