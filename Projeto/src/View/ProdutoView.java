@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
@@ -105,6 +106,11 @@ public class ProdutoView extends javax.swing.JFrame {
                 JBpesquisarActionPerformed(evt);
             }
         });
+        JBpesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JBpesquisarKeyReleased(evt);
+            }
+        });
 
         jButton3.setForeground(new java.awt.Color(0, 0, 102));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-pesquisar-25.png"))); // NOI18N
@@ -147,9 +153,9 @@ public class ProdutoView extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(JBalterar1)
-                            .addComponent(JBpesquisar))
+                            .addComponent(JBpesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -181,7 +187,7 @@ public class ProdutoView extends javax.swing.JFrame {
             }
         });
 
-        TFquantidade.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        TFquantidade.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(0), Integer.valueOf(0), null, Integer.valueOf(1)));
 
         jLabel1.setText("Produto");
 
@@ -205,9 +211,9 @@ public class ProdutoView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(Deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 456, Short.MAX_VALUE)
+                        .addComponent(Deletar, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +234,8 @@ public class ProdutoView extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(JBalterar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel3))))
-                        .addContainerGap(21, Short.MAX_VALUE))))
+                        .addGap(0, 11, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +424,7 @@ public class ProdutoView extends javax.swing.JFrame {
                 model.addRow(new String[]{String.valueOf(telinh.getId()), telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
             }
 
-            JOptionPane.showMessageDialog(this, "Produto Cadrastrado com Sucesso");
+            JOptionPane.showMessageDialog(this, "Produto cadastrado com Sucesso");
 
         } else {
             JOptionPane.showMessageDialog(this, "                                                       Nome ou preço estão Invalidos !!! \n"
@@ -428,45 +435,19 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_JBadicionarActionPerformed
 
     private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
-
-        ProdutoController.excluir(Tabela.getSelectedRow());
+        int id = Integer.parseInt(Tabela.getModel().getValueAt(Tabela.getSelectedRow(), 0).toString());
+        JOptionPane.showMessageDialog(this, ProdutoController.excluir(id));
+        //ProdutoController.excluir(Tabela.getSelectedRow());
 
         DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
 
         model.removeRow(Tabela.getSelectedRow());
-        JOptionPane.showMessageDialog(this, "Produto Excluido com Sucesso");
 
 
     }//GEN-LAST:event_DeletarActionPerformed
 
     private void JBalterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBalterarActionPerformed
-
-        String produto = TFproduto.getText();
-        String preco = TFpreco.getText();
-        String quantidade = String.valueOf(TFquantidade.getValue());
-
-        ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
-
-        ProdutoController.alterar(Tabela.getSelectedRow(), c);
-
-        DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
-
-        model.addRow(new String[]{produto, preco, quantidade});
-
-        List<ProdutoVO> lista = ProdutoController.list();
-
-        for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-        for (ProdutoVO telinh : lista) {
-            model.addRow(new String[]{telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
-        }
-
-        TFproduto.setText("");
-        TFpreco.setText("");
-        TFquantidade.setValue(0);
-
-        JOptionPane.showMessageDialog(this, "Produto Alterado com Sucesso");
+        alterarProduto();
 
 
     }//GEN-LAST:event_JBalterarActionPerformed
@@ -474,38 +455,12 @@ public class ProdutoView extends javax.swing.JFrame {
     private void JBalterar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBalterar1ActionPerformed
 
         preencherCampos();
-        
-        
-        
-        
-        
-        
+
 
     }//GEN-LAST:event_JBalterar1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-
-        DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
-        if (!JBpesquisar.getText().equals("") && JBpesquisar.getText() != null) {
-            List<ProdutoVO> Pesquisinha = ProdutoController.pesquisar(JBpesquisar.getText());
-
-            for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
-                model.removeRow(i);
-            }
-            for (ProdutoVO produtoVO : Pesquisinha) {
-                model.addRow(new String[]{produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
-            }
-
-        } else {
-            List<ProdutoVO> lista = ProdutoController.list();
-
-            for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
-                model.removeRow(i);
-            }
-            for (ProdutoVO telinh : lista) {
-                model.addRow(new String[]{telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
-            }
-        }
+        listar();
 
 
     }//GEN-LAST:event_jButton3ActionPerformed
@@ -540,6 +495,11 @@ public class ProdutoView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    private void JBpesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JBpesquisarKeyReleased
+        pesquisarNomeProduto(JBpesquisar.getText());
+
+    }//GEN-LAST:event_JBpesquisarKeyReleased
+
     public boolean validaProduto() {
         String valida = "[A-Z]{1}[a-z]+";
         String Produto = TFproduto.getText();
@@ -554,17 +514,82 @@ public class ProdutoView extends javax.swing.JFrame {
     }
 
     private void preencherCampos() {
-       int linhaSelecionada = Tabela.getSelectedRow();
+        TFproduto.setText(Tabela.getModel().getValueAt(Tabela.getSelectedRow(), 1).toString());
+        TFpreco.setText(Tabela.getModel().getValueAt(Tabela.getSelectedRow(), 2).toString());
+        String quantidade = String.valueOf(Tabela.getValueAt(Tabela.getSelectedRow(), 3));
+        TFquantidade.setValue(Integer.parseInt(quantidade));
 
-		if (linhaSelecionada != -1) {
+    }
 
-			String codigo = Tabela.getValueAt(linhaSelecionada, 0).toString();
-                        
+    private void pesquisarNomeProduto(String nome) {
+        DefaultTableModel dados = (DefaultTableModel) Tabela.getModel();
+        ProdutoController controller = new ProdutoController();
 
+        List<ProdutoVO> lista = controller.pesquisarNomeProduto(nome);
+
+        for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
+            dados.removeRow(i);
+        }
+        for (ProdutoVO produtoVO : lista) {
+
+            String codigo = Integer.toString(produtoVO.getId());
+            String preco = Double.toString(produtoVO.getPreco());
+            String quantidade = Double.toString(produtoVO.getQuantidade());
+
+            dados.addRow(
+                    new String[]{codigo, produtoVO.getProduto(), preco, quantidade});
+        }
+    }
+
+    private void listar() {
+        DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
+        if (!JBpesquisar.getText().equals("") && JBpesquisar.getText() != null) {
+            List<ProdutoVO> Pesquisinha = ProdutoController.pesquisar(JBpesquisar.getText());
+
+            for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+            for (ProdutoVO produtoVO : Pesquisinha) {
+                model.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
+            }
+
+        } else {
+            List<ProdutoVO> lista = ProdutoController.list();
+
+            for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
+            }
+            for (ProdutoVO telinh : lista) {
+                model.addRow(new String[]{String.valueOf(telinh.getId()), telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
+            }
+        }
+
+    }
+
+    private void alterarProduto() {
+        int id = Integer.parseInt(Tabela.getModel().getValueAt(Tabela.getSelectedRow(), 0).toString());
+        String nomeProduto = TFproduto.getText();
+        String preco = TFpreco.getText();
+        String quantidade = String.valueOf(TFquantidade.getValue());
+
+        ProdutoVO p = new ProdutoVO(nomeProduto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
+
+        ProdutoController controller = new ProdutoController();
+        controller.alterarProduto(p,id);
+         
+        DefaultTableModel dados = (DefaultTableModel) Tabela.getModel();
         
+        List<ProdutoVO> lista = ProdutoController.list();
+        for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
+            dados.removeRow(i);
+        }
+        for (ProdutoVO produtoVO : lista) {
+
+           dados.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
+        }
         
     }
-    }
+
     public class validacaopreco extends PlainDocument {
 
         @Override
