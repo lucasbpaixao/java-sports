@@ -30,14 +30,10 @@ public class ProdutoController {
     }
 
     public static List<ProdutoVO> list() {
-        return dao.list();
+        return dao.Listar();
     }
 
     public static List<ProdutoVO> pesquisar(String nome) {
         return dao.pesquisar(nome);
-    }
-
-    public static void baixaNoEstoque(List<ProdutoVO> carrinho) {
-        dao.baixaNoEstoque(carrinho);
     }
 }

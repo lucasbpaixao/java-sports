@@ -559,7 +559,7 @@ public class RelatorioView extends javax.swing.JFrame {
 
         int contarCliente = 0;
         for (CadastroClienteModel c : banco) {
-            model.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
+            //model.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
             contarCliente++;
         }
 
@@ -597,7 +597,7 @@ public class RelatorioView extends javax.swing.JFrame {
                 }
             } else if (resultado == "cliente") {
                 for (CadastroClienteModel c : banco) {
-                    search.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
+                    //search.addRow(new String[]{c.getNome(), c.getSobrenome(), c.getData(), c.getSexo(), c.getCpf(), c.getRg(), c.getTelefone()});
                 }
             }else if(resultado == "vendas"){
                 //Comando for

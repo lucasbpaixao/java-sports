@@ -60,9 +60,9 @@ public class VendasView extends javax.swing.JFrame {
         tabela = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         lblValorToral = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        JBFinalizar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        JBAddCarrinho = new javax.swing.JButton();
         spinnerQtd = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
         comboProduto = new javax.swing.JComboBox<String>();
@@ -129,12 +129,12 @@ public class VendasView extends javax.swing.JFrame {
                 .addGap(0, 12, Short.MAX_VALUE))
         );
 
-        jButton1.setForeground(new java.awt.Color(0, 0, 102));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-finalizar-pedido-20.png"))); // NOI18N
-        jButton1.setText("Finalizar Compra");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        JBFinalizar.setForeground(new java.awt.Color(0, 0, 102));
+        JBFinalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-finalizar-pedido-20.png"))); // NOI18N
+        JBFinalizar.setText("Finalizar Compra");
+        JBFinalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                JBFinalizarActionPerformed(evt);
             }
         });
 
@@ -147,12 +147,12 @@ public class VendasView extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setForeground(new java.awt.Color(0, 0, 102));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-carrinho-de-compras-20.png"))); // NOI18N
-        jButton3.setText("Adicionar ao Carrinho");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        JBAddCarrinho.setForeground(new java.awt.Color(0, 0, 102));
+        JBAddCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-carrinho-de-compras-20.png"))); // NOI18N
+        JBAddCarrinho.setText("Adicionar ao Carrinho");
+        JBAddCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                JBAddCarrinhoActionPerformed(evt);
             }
         });
 
@@ -291,7 +291,7 @@ public class VendasView extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 509, Short.MAX_VALUE)
-                                .addComponent(jButton1))
+                                .addComponent(JBFinalizar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
@@ -307,7 +307,7 @@ public class VendasView extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton3)))
+                                .addComponent(JBAddCarrinho)))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -328,13 +328,13 @@ public class VendasView extends javax.swing.JFrame {
                     .addComponent(spinnerQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(jButton3)
+                .addComponent(JBAddCarrinho)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(JBFinalizar))
                 .addGap(97, 97, 97))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -342,7 +342,7 @@ public class VendasView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void JBAddCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddCarrinhoActionPerformed
 
         if (tabela.getRowCount() == 0) {
             if (txtCPF.getText().equals("   .   .   -  ")) {
@@ -355,7 +355,7 @@ public class VendasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String id = String.valueOf(comboProduto.getSelectedItem()).substring(0, 1);
-        ProdutoVO produto = new ProdutoVO("", 0, 0, 0);
+        ProdutoVO produto = new ProdutoVO("", 0, 0, 0,0);
         produto = acharProduto(Integer.parseInt(id));
 
         int quantidade = Integer.parseInt(String.valueOf(spinnerQtd.getValue()));
@@ -379,7 +379,7 @@ public class VendasView extends javax.swing.JFrame {
 
         comboProduto.setSelectedIndex(0);
         spinnerQtd.setValue(1);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_JBAddCarrinhoActionPerformed
 
     public void limpar() {
         comboProduto.setSelectedIndex(0);
@@ -410,13 +410,15 @@ public class VendasView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnProdutoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void JBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBFinalizarActionPerformed
         Venda venda = new Venda();
 
         venda.setCarrinho(carrinho);
         venda.setData(new Date(System.currentTimeMillis()));
         venda.setValorTotal(Double.parseDouble(lblValorToral.getText()));
-        CadastroClienteModel cliente = acharCliente(txtCPF.getText());
+        String cpf = txtCPF.getText().replace(".", "").replace("-", "");
+        CadastroClienteModel cliente = acharCliente(Long.parseLong(cpf));
+        
         if (cliente != null) {
             venda.setCliente(cliente);
         } else {
@@ -429,7 +431,6 @@ public class VendasView extends javax.swing.JFrame {
             System.out.println(produto.getProduto());
         }
 
-        ProdutoController.baixaNoEstoque(carrinho);
         VendaController.cadastrarVenda(venda);
 
         txtCPF.setText("");
@@ -443,7 +444,7 @@ public class VendasView extends javax.swing.JFrame {
             model.removeRow(i);
         }
         JOptionPane.showMessageDialog(null, "Venda Registrada com Sucesso", "Sucesso na Operação", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_JBFinalizarActionPerformed
 
     private void btnEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEstoqueActionPerformed
         EstoqueView estoque = new EstoqueView();
@@ -501,15 +502,15 @@ public class VendasView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JBAddCarrinho;
+    private javax.swing.JButton JBFinalizar;
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnEstoque;
     private javax.swing.JButton btnProduto;
     private javax.swing.JButton btnRelatorio;
     private javax.swing.JButton btnVendas;
     private javax.swing.JComboBox<String> comboProduto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -546,10 +547,11 @@ public class VendasView extends javax.swing.JFrame {
         return null;
     }
 
-    private CadastroClienteModel acharCliente(String cpf) {
-
+    private CadastroClienteModel acharCliente(long cpf) {
+        System.out.println(clientes.size());
         for (CadastroClienteModel cliente : clientes) {
-            if (cliente.getCpf().equals(cpf)) {
+            System.out.println(cliente.getCpf());
+            if (cliente.getCpf() == cpf) {
                 return cliente;
             }
         }

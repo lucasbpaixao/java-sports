@@ -8,11 +8,12 @@ public class ProdutoVO {
     private int quantidade;
     private int quantidadeVendida;
 
-    public ProdutoVO(String Produto, double preco, int quantidade, int quantidadeVendida) {
+    public ProdutoVO(String Produto, double preco, int quantidade, int quantidadeVendida, int id) {
         this.produto = Produto;
         this.preco = preco;
         this.quantidade = quantidade;
         this.quantidadeVendida = quantidadeVendida;
+        this.id = id;
     }
 
     public int getQuantidadeVendida() {
@@ -60,4 +61,6 @@ public class ProdutoVO {
         return produto + " : " + preco + " : " + quantidade;
 
     }
+    
+    
 }
