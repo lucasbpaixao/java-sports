@@ -16,12 +16,14 @@ import javax.swing.table.DefaultTableModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import DAOFactory.DAOFactory;
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.InputMismatchException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -37,6 +39,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
     public CadastroClienteView() {
         initComponents();
         setLocationRelativeTo(null);
+        txtData.setText("00000000");
     }
 
     /**
@@ -214,7 +217,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jComboEstado, 0, 242, Short.MAX_VALUE))
+                                        .addComponent(jComboEstado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(23, 23, 23)
                                         .addComponent(jLabel10)
@@ -504,41 +507,39 @@ public class CadastroClienteView extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(311, 311, 311)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+                            .addComponent(jSeparator2)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(311, 311, 311)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
-                                    .addComponent(jSeparator2)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel12)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(btnPesquisar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1)
-                                        .addGap(121, 121, 121)
-                                        .addComponent(btnAlterar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(btnCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel12)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnPesquisar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnAlterar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnCarregar, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnAtualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -549,7 +550,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -567,7 +568,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
                         .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnPesquisar)
                         .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -601,35 +602,39 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (validaPreenchimento()) {
             if (validaNome() && validaSobrenome()) {
-                String nome, sobrenome, data, sexo, rg, telefone, estado, uf, cidade, rua;
-                long cpf;
-                int numero, cep;
+                if (validaCpfCliente(txtCPF.getText())) {
+                    String nome, sobrenome, data, sexo, rg, telefone, estado, uf, cidade, rua;
+                    long cpf;
+                    int numero, cep;
 
-                nome = txtNome.getText();
-                sobrenome = txtSobrenome.getText();
-                data = txtData.getText();
-                sexo = jcomboSexo.getSelectedItem().toString();
-                cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
-                rg = txtRG.getText();
-                telefone = txtTelefone.getText();
-                estado = jComboEstado.getSelectedItem().toString();
-                uf = txtUF.getText();
-                cidade = txtCidade.getText();
-                rua = txtRua.getText();
-                numero = Integer.parseInt(txtNumero.getText());
-                cep = Integer.parseInt(txtCEP.getText());
+                    nome = txtNome.getText();
+                    sobrenome = txtSobrenome.getText();
+                    data = txtData.getText();
+                    sexo = jcomboSexo.getSelectedItem().toString();
+                    cpf = Long.parseLong(txtCPF.getText().replace(".", "").replace("-", ""));
+                    rg = txtRG.getText();
+                    telefone = txtTelefone.getText();
+                    estado = jComboEstado.getSelectedItem().toString();
+                    uf = txtUF.getText();
+                    cidade = txtCidade.getText();
+                    rua = txtRua.getText();
+                    numero = Integer.parseInt(txtNumero.getText());
+                    cep = Integer.parseInt(txtCEP.getText());
 
-                try {
-                    JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone,
-                            estado, uf, cidade, rua, numero, cep));
-                } catch (ParseException ex) {
-                    ex.printStackTrace();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+                    try {
+                        JOptionPane.showMessageDialog(this, CadastroClienteController.Salvar(nome, sobrenome, data, sexo, cpf, rg, telefone,
+                                estado, uf, cidade, rua, numero, cep));
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    CarregarBanco();
+                    limpaFormulario();
+                } else {
+                    JOptionPane.showMessageDialog(this, "CPF invalido");
                 }
-
-                CarregarBanco();
-                limpaFormulario();
             } else {
                 JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
                         + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
@@ -919,6 +924,66 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }
 
+    public boolean validaCpfCliente(String cpf) {
+		boolean retorno = true;
+			
+		if (cpf.replaceAll("[.-]", "").trim().equals("00000000000")
+				|| cpf.replaceAll("[.-]", "").trim().equals("11111111111")
+				|| cpf.replaceAll("[.-]", "").trim().equals("11111111111")
+				|| cpf.replaceAll("[.-]", "").trim().equals("33333333333")
+				|| cpf.replaceAll("[.-]", "").trim().equals("44444444444")
+				|| cpf.replaceAll("[.-]", "").trim().equals("55555555555")
+				|| cpf.replaceAll("[.-]", "").trim().equals("66666666666")
+				|| cpf.replaceAll("[.-]", "").trim().equals("77777777777")
+				|| cpf.replaceAll("[.-]", "").trim().equals("88888888888")
+				|| cpf.replaceAll("[.-]", "").trim().equals("99999999999")
+				|| (cpf.replaceAll("[.-]", "").trim().length() != 11)) {
+			JOptionPane.showMessageDialog(null,"Esse CPF não existe" ,"Inválido", JOptionPane.WARNING_MESSAGE);
+			retorno = false;
+		} else {
+			char dig10, dig11;
+			int sm, i, r, num, peso;
+			try {
+				sm = 0;
+				peso = 10;
+				for (i = 0; i < 9; i++) {
+					num = (int) (cpf.replaceAll("[.-]", "").trim().charAt(i) - 48);
+					sm = sm + (num * peso);
+					peso = peso - 1;
+				}
+				r = 11 - (sm % 11);
+				if ((r == 10) || (r == 11)) {
+					dig10 = '0';
+				} else {
+					dig10 = (char) (r + 48);
+				}
+				sm = 0;
+				peso = 11;
+				for (i = 0; i < 10; i++) {
+					num = (int) (cpf.replaceAll("[.-]", "").trim().charAt(i) - 48);
+					sm = sm + (num * peso);
+					peso = peso - 1;
+				}
+				r = 11 - (sm % 11);
+				if ((r == 10) || (r == 11)) {
+					dig11 = '0';
+				} else {
+					dig11 = (char) (r + 48);
+				}
+				if ((dig10 == cpf.replaceAll("[.-]", "").trim().charAt(9))
+						&& (dig11 == cpf.replaceAll("[.-]", "").trim().charAt(10))) {
+					retorno = (true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Informe um CPF Válido" ,"Inválido", JOptionPane.WARNING_MESSAGE);
+					retorno = (false);
+				}
+			} catch (InputMismatchException erro) {
+				retorno = (false);
+			}
+		}
+		return retorno;
+	}
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CEP;
@@ -972,4 +1037,5 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtTelefone;
     private javax.swing.JFormattedTextField txtUF;
     // End of variables declaration//GEN-END:variables
+
 }
