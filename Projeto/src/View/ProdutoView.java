@@ -3,6 +3,7 @@ package View;
 import Controller.ProdutoController;
 import Dao.ProdutoDao;
 import Model.ProdutoVO;
+import Validation.ValidationProduto;
 import View.CadastroClienteView;
 import View.EstoqueView;
 import View.RelatorioView;
@@ -403,8 +404,9 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_TFprodutoActionPerformed
 
     private void JBadicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBadicionarActionPerformed
-
-        if (validaProduto()) {
+        ValidationProduto produtoValidation = new ValidationProduto();
+        
+        if (produtoValidation.validarCampos(TFproduto,TFpreco,TFquantidade)) {
 
             String produto = TFproduto.getText();
             String preco = TFpreco.getText();
@@ -426,12 +428,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(this, "Produto cadastrado com Sucesso");
 
-        } else {
-            JOptionPane.showMessageDialog(this, "                                                       Nome ou preço estão Invalidos !!! \n"
-                    + "Atenção: Os nomes devem começar com letra maiuscula e devem conter somente letras sem acento!!!");
         }
-
-
     }//GEN-LAST:event_JBadicionarActionPerformed
 
     private void DeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeletarActionPerformed
@@ -500,18 +497,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_JBpesquisarKeyReleased
 
-    public boolean validaProduto() {
-        String valida = "[A-Z]{1}[a-z]+";
-        String Produto = TFproduto.getText();
-        boolean validacao;
-
-        validacao = Produto.matches(valida);
-        Pattern v = Pattern.compile(valida);
-        Matcher m = v.matcher(Produto);
-        validacao = m.matches();
-        TFproduto.getText().toUpperCase();
-        return validacao;
-    }
+   
 
     private void preencherCampos() {
         TFproduto.setText(Tabela.getModel().getValueAt(Tabela.getSelectedRow(), 1).toString());
@@ -575,19 +561,19 @@ public class ProdutoView extends javax.swing.JFrame {
         ProdutoVO p = new ProdutoVO(nomeProduto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
 
         ProdutoController controller = new ProdutoController();
-        controller.alterarProduto(p,id);
-         
+        controller.alterarProduto(p, id);
+
         DefaultTableModel dados = (DefaultTableModel) Tabela.getModel();
-        
+
         List<ProdutoVO> lista = ProdutoController.list();
         for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
             dados.removeRow(i);
         }
         for (ProdutoVO produtoVO : lista) {
 
-           dados.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
+            dados.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
         }
-        
+
     }
 
     public class validacaopreco extends PlainDocument {

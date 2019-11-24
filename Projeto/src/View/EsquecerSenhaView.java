@@ -7,6 +7,8 @@ package View;
 
 import Controller.EsquecerSenhaController;
 import Model.EsquecerSenhaVO;
+import Validation.ValidationEsquecerSenha;
+import Validation.ValidationUsuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -136,7 +138,17 @@ public class EsquecerSenhaView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
-            criarSenha();
+
+            ValidationUsuario usuarioValidation = new ValidationUsuario();
+            EsquecerSenhaVO esquecerSenhaVO = new EsquecerSenhaVO();
+            ValidationEsquecerSenha esquecerSenhaValidation = new ValidationEsquecerSenha();
+            String email = txtEmail.getText();
+            if (esquecerSenhaValidation.validarCampos(txtEmail, txtLogin)) {
+                if (usuarioValidation.validarEmailUsuario(email)) {
+
+                    criarSenha();
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(EsquecerSenhaView.class.getName()).log(Level.SEVERE, null, ex);
         }

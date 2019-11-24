@@ -7,6 +7,7 @@ package View;
 
 import Controller.LoginController;
 import Model.LoginVO;
+import Validation.ValidationLogin;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -252,7 +253,10 @@ public class LoginView extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            ValidationLogin login = new ValidationLogin();
+            if(login.validarCampos(txtLogin,txtSenha)){
             logar();
+            }
 
         } catch (Exception ex) {
             Logger.getLogger(LoginView.class.getName()).log(Level.SEVERE, null, ex);
@@ -326,6 +330,8 @@ public class LoginView extends javax.swing.JFrame {
         if (loginController.logar(loginVO)) {
             MenuView menu = new MenuView();
             menu.setVisible(true);
+           
+           
         }
 
     }

@@ -247,7 +247,7 @@ public class MenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel3KeyPressed
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-         JOptionPane.showMessageDialog(null, "Volte Sempre");
+        JOptionPane.showMessageDialog(null, "Volte Sempre");
         LoginView login = new LoginView();
         login.setVisible(true);
         dispose();
