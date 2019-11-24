@@ -93,7 +93,6 @@ public class CadastroClienteDAO {
     }
 
     public static String alterar(CadastroClienteModel a, int linha) throws ParseException, SQLException {
-        if(CadastroClienteView.CPFigual(a.getCpf())){
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
@@ -131,9 +130,6 @@ public class CadastroClienteDAO {
             ex.printStackTrace();
         }
         return "Alterado com sucesso";
-        }else {
-            return "CPF já cadastrado, utilize outro! Cliente não cadastrado";
-        }
     }
 
     public static List<CadastroClienteModel> listar(){

@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,10 +35,10 @@ public class VendaDao {
 
             SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-            instrucaoSQL = conexao.prepareStatement("INSERT INTO venda (cpfCliente, dataVenda, valorTotal) values (?,?,?)");
+            instrucaoSQL = conexao.prepareStatement("INSERT INTO venda (cpfCliente, dataVenda, valorTotal) values (?,?,?)", Statement.RETURN_GENERATED_KEYS);
 
             instrucaoSQL.setLong(1, venda.getCliente().getCpf());
-            instrucaoSQL.setDate(2, new java.sql.Date(venda.getData()));
+            instrucaoSQL.setDate(2, new java.sql.Date(venda.getData().getTime()));
             instrucaoSQL.setDouble(3, venda.getValorTotal());
 
             int linhasAfetadas = instrucaoSQL.executeUpdate();

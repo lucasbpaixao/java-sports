@@ -635,9 +635,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
                     CarregarBanco();
                     limpaFormulario();
-                } else {
-                    JOptionPane.showMessageDialog(this, "CPF invalido");
-                }
+                } 
             } else {
                 JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
                         + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
@@ -682,6 +680,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (validaPreenchimento()) {
             if (validaNome() && validaSobrenome()) {
+                if (validaCpfCliente(txtCPF.getText())) {
                 String nome, sobrenome, dataAtualizar, sexo, rg, telefone, estado, uf, cidade, rua;
                 long cpf;
                 int numero, cep;
@@ -711,6 +710,7 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
                 CarregarBanco();
                 limpaFormulario();
+                }
             } else {
                 JOptionPane.showMessageDialog(this, "Nome ou Ultimo Sobrenome invalidos! \n"
                         + "Atenção: Os nomes devem começar com letra maiuscula e devem contem somente letras sem acento!!!");
