@@ -61,7 +61,7 @@ public class VendaDao {
                 instrucaoSQL.execute();
             }
             
-            JOptionPane.showMessageDialog(null, "Funcionou");
+            
 
         } catch (SQLException ex) {
             ex.printStackTrace();
