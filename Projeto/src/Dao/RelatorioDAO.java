@@ -7,6 +7,14 @@ package Dao;
 
 import Model.Relatorio;
 import java.util.ArrayList;
+import DAOFactory.DAOFactory;
+import Model.Venda;
+import View.RelatorioView;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
  *
@@ -14,34 +22,73 @@ import java.util.ArrayList;
  */
 public class RelatorioDAO {
 
-    public static ArrayList<Relatorio> relatorio = new ArrayList();
+    public static List<Relatorio> relatorio = new ArrayList();
 
-    public String relatorioProdutos(String listaProdutos) {
-        return null;
+    public RelatorioDAO() throws SQLException {
+
     }
 
-    public String relatorioVendas() {
-        return null;
-    }
+    public List<Relatorio> Listar() throws SQLException {
 
-    public String relatorioClientes() {
-        return null;
-    }
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        List<Relatorio> relatorios = new ArrayList<>();
 
-    public String relatorioFaturamento() {
-        return null;
-    }
+        try {
+            conexao = DAOFactory.conexao();
 
-    public String pesquisa(Relatorio busca) {
-        return null;
-    }
+            instrucaoSQL = conexao.prepareStatement("select venda.idVenda, cliente.nome, cliente.sobrenome, venda.dataVenda, sum(venda.valorTotal) as total, venda.cpfCliente, count(*) as contador\n" +
+            "from venda inner join cliente on venda.cpfCliente = cliente.cpfCliente group by venda.cpfCliente, venda.dataVenda order by venda.idVenda;");
 
-    public int qtdClientes() {
-        return 0;
-    }
+            ResultSet res = instrucaoSQL.executeQuery();
 
-    public double faturamento() {
-        return 0.0;
-    }
+            while (res.next()) {
 
+                Relatorio rel = new Relatorio(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
+
+                relatorios.add(rel);
+
+            }
+            
+            instrucaoSQL.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return relatorios;
+    }
+   
+
+    public List<Relatorio> ListarAnalitico(String id) throws SQLException {
+
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        List<Relatorio> relatorios = new ArrayList<>();
+
+        try {
+            conexao = DAOFactory.conexao();
+
+            instrucaoSQL = conexao.prepareStatement("select venda.idVenda, cliente.nome, cliente.sobrenome, venda.dataVenda, sum(venda.valorTotal) as total, venda.cpfCliente, count(*) as contador\n" +
+            "from venda inner join cliente on venda.cpfCliente = cliente.cpfCliente where venda.cpfCliente = "+id+" group by venda.cpfCliente, venda.dataVenda order by venda.idVenda;");
+
+            ResultSet res = instrucaoSQL.executeQuery();
+
+            while (res.next()) {
+
+                Relatorio rel = new Relatorio(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
+
+                relatorios.add(rel);
+
+            }
+            
+            instrucaoSQL.execute();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return relatorios;
+    } 
+   
 }

@@ -5,7 +5,9 @@
  */
 package Controller;
 
+import Dao.AnaliticoDAO;
 import Dao.RelatorioDAO;
+import Model.AnaliticoVO;
 import Model.Relatorio;
 import java.sql.SQLException;
 import java.util.List;
@@ -16,27 +18,25 @@ import java.util.logging.Logger;
  *
  * @author oz500
  */
-public class RelatorioController {
-
+public class AnaliticoController {
     
-
-    public static List<Relatorio> list() throws SQLException{
-        RelatorioDAO dao = null;
+    public static List<AnaliticoVO> listaAnalitico(String id) throws SQLException{
+        AnaliticoDAO dao = null;
         try {
-            dao = new RelatorioDAO();
-        } catch (SQLException ex) {
-            Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dao.Listar();
-    }
-    
-    public static List<Relatorio> listaAnalitico(String id) throws SQLException{
-        RelatorioDAO dao = null;
-        try {
-            dao = new RelatorioDAO();
+            dao = new AnaliticoDAO();
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return dao.ListarAnalitico(id);
+    }
+    
+    public static List<AnaliticoVO> contarIntensRelatorio() throws SQLException{
+        AnaliticoDAO dao = null;
+        try {
+            dao = new AnaliticoDAO();
+        } catch (SQLException ex) {
+            Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dao.contarItens();
     }
 }
