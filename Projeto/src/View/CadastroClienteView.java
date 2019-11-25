@@ -40,7 +40,6 @@ public class CadastroClienteView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         txtData.setText("00000000");
-        CarregarBanco();
     }
 
     /**
@@ -727,7 +726,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
+        limpaFormulario();
         CarregarBanco();
+        
     }//GEN-LAST:event_btnCarregarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
@@ -778,40 +779,21 @@ public class CadastroClienteView extends javax.swing.JFrame {
         });
     }
 
-    public void CarregarBanco() {
-        limparTabela();
+   public void CarregarBanco(){
+       DefaultTableModel model = (DefaultTableModel) jtable.getModel();
+        List<CadastroClienteModel> lista = CadastroClienteController.listar();
 
-        Connection conexao = null;
-        PreparedStatement instrucaoSQL = null;
-        ResultSet rs = null;
-
-        try {
-            conexao = DAOFactory.conexao();
-
-            instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente");
-            rs = instrucaoSQL.executeQuery();
-
-            DefaultTableModel tmClientes = (DefaultTableModel) jtable.getModel();
-
-            while (rs.next()) {
-                Date dataAtual = rs.getDate("dataNascimento");
-                
-                System.out.println(dataAtual);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-
-                String[] linha = {rs.getString("cpfCliente"), rs.getString("nome"), rs.getString("sobrenome"),
-                    dateFormat.format(dataAtual), rs.getString("sexo"), rs.getString("rg"), rs.getString("telefone"),
-                    rs.getString("estado_civil"), rs.getString("uf"), rs.getString("cidade"), rs.getString("rua"),
-                    rs.getString("numero"), rs.getString("CEP")};
-                tmClientes.addRow(linha);
+            for (int i = jtable.getRowCount() - 1; i >= 0; i--) {
+                model.removeRow(i);
             }
-
-            rs.close();
-            conexao.close();
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
+            for (CadastroClienteModel telinh : lista) {
+                model.addRow(new String[]{String.valueOf(telinh.getCpf()),String.valueOf(telinh.getNome()),
+                String.valueOf(telinh.getSobrenome()),String.valueOf(telinh.getData()),String.valueOf(telinh.getSexo()),
+                String.valueOf(telinh.getRg()),String.valueOf(telinh.getTelefone()),String.valueOf(telinh.getEstado()),
+                String.valueOf(telinh.getUf()),String.valueOf(telinh.getCidade()),String.valueOf(telinh.getRua()),
+                String.valueOf(telinh.getNumero()),String.valueOf(telinh.getCep()),});
+            }
+   }
 
     public void pesquisar(long cpf) {
         limparTabela();

@@ -165,5 +165,40 @@ public class CadastroClienteDAO {
         
         return clientes;
     }
+    /*
+     public void CarregarBanco() {
+ 
+
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = DAOFactory.conexao();
+
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM cliente");
+            rs = instrucaoSQL.executeQuery();
+
+            DefaultTableModel tmClientes = (DefaultTableModel) jtable.getModel();
+
+            while (rs.next()) {
+                java.util.Date dataAtual = rs.getDate("dataNascimento");
+                
+                System.out.println(dataAtual);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+                String[] linha = {rs.getString("cpfCliente"), rs.getString("nome"), rs.getString("sobrenome"),
+                    dateFormat.format(dataAtual), rs.getString("sexo"), rs.getString("rg"), rs.getString("telefone"),
+                    rs.getString("estado_civil"), rs.getString("uf"), rs.getString("cidade"), rs.getString("rua"),
+                    rs.getString("numero"), rs.getString("CEP")};
+                tmClientes.addRow(linha);
+            }
+
+            rs.close();
+            conexao.close();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    */
 
 }
