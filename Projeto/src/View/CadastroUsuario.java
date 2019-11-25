@@ -23,6 +23,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
      */
     public CadastroUsuario() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -284,6 +285,10 @@ public class CadastroUsuario extends javax.swing.JFrame {
             if (usuarioValidation.validarCampos(txtlogin, txtnome, txtemail, txtsenha)) {
                 if (usuarioValidation.validarEmailUsuario(email)) {
                     cadastrar();
+                    
+                    LoginView login = new LoginView();
+                    login.setVisible(true);
+                    dispose();
                 }
             }
         } catch (Exception ex) {
