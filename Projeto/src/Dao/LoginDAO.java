@@ -35,8 +35,10 @@ public class LoginDAO {
         ResultSet result = preparedStatement.executeQuery();
 
         if (result.next()) {
-           retorno = true;
-        } 
+            retorno = true;
+        } else {
+            JOptionPane.showMessageDialog(null, "Favor verificar as credenciais", "Inválido", JOptionPane.WARNING_MESSAGE);
+        }
 
         return retorno;
 

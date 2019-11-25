@@ -23,6 +23,7 @@ public class EstoqueView extends javax.swing.JFrame {
     public EstoqueView() {
         initComponents();
         setLocationRelativeTo(null);
+        listar();
     }
 
     /**
@@ -47,7 +48,6 @@ public class EstoqueView extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
         Carregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -157,9 +157,17 @@ public class EstoqueView extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "ID", "Nome do Produto", "Valor", "Quantidade"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
@@ -170,14 +178,9 @@ public class EstoqueView extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-
-        jButton6.setForeground(new java.awt.Color(0, 0, 102));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/icons8-pesquisar-25.png"))); // NOI18N
-        jButton6.setText("Pesquisar");
-        jButton6.setActionCommand("");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -203,14 +206,12 @@ public class EstoqueView extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(135, 135, 135)
                                 .addComponent(Carregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(8, 8, 8)))
                         .addContainerGap())))
@@ -225,7 +226,6 @@ public class EstoqueView extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Carregar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -269,11 +269,14 @@ public class EstoqueView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void CarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarregarActionPerformed
-        // TODO add your handling code here
+        listar();
+    }//GEN-LAST:event_CarregarActionPerformed
+
+    private void listar() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setColumnIdentifiers(new Object[]{"Codigo", "Nome", "Tipo", "Quantidade"});
+
         String codigo = "";
-        int count = 0;
+
         if (model.getRowCount() > 0) {
             for (int i = model.getRowCount() - 1; i >= 0; i--) {
                 model.removeRow(i);
@@ -282,44 +285,36 @@ public class EstoqueView extends javax.swing.JFrame {
 
         List<ProdutoVO> lis = ProdutoController.list();
         for (ProdutoVO p : lis) {
-            count++;
-            codigo = "" + count + "";
+            codigo = "" + p.getId() + "";
             String produto = p.getProduto();
             String preco = "" + p.getPreco() + "";
             String quantidade = "" + p.getQuantidade() + "";
             model.addRow(new String[]{codigo, produto, preco, quantidade});
         }
-    }//GEN-LAST:event_CarregarActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
+    }
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         String dado = jTextField1.getText();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        List<ProdutoVO> pesquisa = ProdutoController.pesquisar(dado);
-        List<ProdutoVO> list = ProdutoController.list();
-        String codigo = "";
-        int count = 0;
-        
-        if (dado.equals(null) || dado.equals("")) {
+
+        ProdutoController c = new ProdutoController();
+        List<ProdutoVO> pesquisa = c.pesquisarNomeProduto(dado);
+
+        if (model.getRowCount() > 0) {
             for (int i = model.getRowCount() - 1; i >= 0; i--) {
                 model.removeRow(i);
-            }
-            for (ProdutoVO produtoVO : list) {
-                count++;
-                codigo = ""+count+"";
-                model.addRow(new String[]{codigo, produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
-            }
-            
-            JOptionPane.showMessageDialog(null, "Campo nulo ou vazio.\nDigite novamente.");
-        } else {
-            for (int i = model.getRowCount() - 1; i >= 0; i--) {
-                model.removeRow(i);
-            }
-            for (ProdutoVO produtoVO : pesquisa) {
-                model.addRow(new String[]{produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
             }
         }
-    }//GEN-LAST:event_jButton6ActionPerformed
+
+        for (ProdutoVO p : pesquisa) {
+            String codigo = "" + p.getId() + "";
+            String produto = p.getProduto();
+            String preco = "" + p.getPreco() + "";
+            String quantidade = "" + p.getQuantidade() + "";
+            model.addRow(new String[]{codigo, produto, preco, quantidade});
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
     /**
      * @param args the command line arguments
@@ -363,7 +358,6 @@ public class EstoqueView extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

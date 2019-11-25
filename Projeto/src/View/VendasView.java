@@ -351,6 +351,11 @@ public class VendasView extends javax.swing.JFrame {
             }
             txtCPF.enable(false);
         }
+        
+        if(comboProduto.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Favor Selecionar um Produto", "Selecione um produto", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 

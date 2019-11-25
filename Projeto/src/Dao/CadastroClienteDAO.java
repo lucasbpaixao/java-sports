@@ -88,6 +88,7 @@ public class CadastroClienteDAO {
         
         } catch (SQLException ex) {
             ex.printStackTrace();
+            return "Cliente Não Pode ser Excluido, Possiveis Causas seriam Algum preenchimento Errado ou ele Estar Atribuido a uma Venda.";
         }
         return "Excluido com sucesso";
     }

@@ -15,6 +15,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class ProdutoDao {
@@ -73,35 +75,28 @@ public class ProdutoDao {
 //public String numeroDeCadastros() {
     //return produto.size() + "";
     //}
-    public void excluir(int id) {
+    public static String excluir(int id) {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-
+        
+        String retorno = "";
         try {
             conexao = DAOFactory.conexao();
 
-            String SQL = "DELETE FROM produto WHERE idProduto = ?";
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM produto WHERE idProduto = ?");
 
-            PreparedStatement excluir = conexao.prepareCall(SQL);
+            instrucaoSQL.setInt(1, id);
 
-            excluir.setInt(1, id);
+            instrucaoSQL.execute();
 
-            excluir.execute();
-
+            retorno = "Produto Excluido com sucesso";
         } catch (SQLException a) {
             a.printStackTrace();
+            return "Produto Não Pode ser Excluido, Possiveis Causas seriam Algum preenchimento Errado ou ele Estar Atribuido a uma Venda.";
         }
-        ;
 
-    }
-
-    public void alterar(int tirar, ProdutoVO telinha) {
-
-        produto.get(tirar).setPreco(telinha.getPreco());
-        produto.get(tirar).setProduto(telinha.getProduto());
-        produto.get(tirar).setQuantidade(telinha.getQuantidade());
-
+        return retorno;
     }
 
     public List<ProdutoVO> list() {
@@ -122,7 +117,78 @@ public class ProdutoDao {
         return pesquisar;
     }
 
+    public void baixaNoEstoque(List<ProdutoVO> carrinho) {
 
+        for (ProdutoVO produtoVenda : carrinho) {
+            int index = 0;
+            for (ProdutoVO produtoReal : produto) {
+
+                if (produtoReal.getId() == produtoVenda.getId()) {
+                    int quantidade = (produtoReal.getQuantidade() - produtoVenda.getQuantidadeVendida());
+                    produto.get(index).setQuantidade(quantidade);
+                    break;
+
+                }
+
+                index++;
+            }
+        }
+
+    }
+
+    public List<ProdutoVO> pesquisarNomeProduto(String nome) {
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        List<ProdutoVO> produtos = new ArrayList<>();
+        try {
+            conexao = DAOFactory.conexao();
+
+            instrucaoSQL = conexao.prepareStatement("Select * from produto where nomeProduto like '%" + nome + "%'");
+
+            ResultSet resultado = instrucaoSQL.executeQuery();
+
+            while (resultado.next()) {
+
+                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+
+                produtos.add(produtus);
+
+            }
+
+        } catch (SQLException a) {
+            a.printStackTrace();
+
+        }
+
+        return produtos;
+    }
+
+    public void alterarProduto(ProdutoVO p,int id) {
+
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = DAOFactory.conexao();
+
+            instrucaoSQL = conexao.prepareStatement("UPDATE produto SET nomeProduto = ? , valor = ? , quantidade = ? WHERE idProduto = ?");
+
+            instrucaoSQL.setString(1, p.getProduto());
+            instrucaoSQL.setLong(2, (long) p.getPreco());
+            instrucaoSQL.setLong(3, p.getQuantidade());
+            instrucaoSQL.setInt(4, id);
+
+           instrucaoSQL.execute();
+           
+           JOptionPane.showMessageDialog(null, "Produto Alterado com sucesso");
+          
+        } catch (SQLException a) {
+            JOptionPane.showMessageDialog(null, "Erro ao alterar o Produto");
+            a.printStackTrace();
+            
+        }
+          
+    }
+
+    
 }
-
-
