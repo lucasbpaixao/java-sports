@@ -65,7 +65,7 @@ public class VendasView extends javax.swing.JFrame {
         JBAddCarrinho = new javax.swing.JButton();
         spinnerQtd = new javax.swing.JSpinner();
         jLabel3 = new javax.swing.JLabel();
-        comboProduto = new javax.swing.JComboBox<String>();
+        comboProduto = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -156,12 +156,12 @@ public class VendasView extends javax.swing.JFrame {
             }
         });
 
-        spinnerQtd.setModel(new javax.swing.SpinnerNumberModel(Integer.valueOf(1), Integer.valueOf(1), null, Integer.valueOf(1)));
+        spinnerQtd.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         jLabel3.setForeground(new java.awt.Color(0, 0, 102));
         jLabel3.setText("Produto");
 
-        comboProduto.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione um Produto" }));
+        comboProduto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione um Produto" }));
 
         jPanel2.setBackground(new java.awt.Color(26, 40, 80));
 
@@ -169,6 +169,11 @@ public class VendasView extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("JavaSports");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -469,6 +474,12 @@ public class VendasView extends javax.swing.JFrame {
         relatorio.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnRelatorioActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        MenuView menu = new MenuView();
+        menu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments

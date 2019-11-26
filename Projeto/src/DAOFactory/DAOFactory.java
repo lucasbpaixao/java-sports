@@ -17,7 +17,7 @@ public class DAOFactory {
 
     public static Connection conexao() throws SQLException {
 
-        String url = "jdbc:mysql://localhost:3306/artigosEsportivos";
+        String url = "jdbc:mysql://localhost:3307/artigosEsportivos";
         String user = "root";
         String password = "";
 
