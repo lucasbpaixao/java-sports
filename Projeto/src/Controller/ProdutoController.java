@@ -7,44 +7,52 @@ package Controller;
 
 import Dao.ProdutoDao;
 
-import Model.ProdutoModel;
+import Model.ProdutoVO;
 import java.util.List;
 
 /**
  *
  * @author lucas
+ * @see Model.ProdutoVO
+ * @see Dao.ProdutoDao
  */
 public class ProdutoController {
 
     static ProdutoDao dao = new ProdutoDao();
+    
+    /**
+     * @param produto
+     */
 
-    public static void cadastroDeProdutos(ProdutoModel produto) {
+    public static void cadastroDeProdutos(ProdutoVO produto) {
         dao.cadastroDeProdutos(produto);
     }
-
+    //Método para excluir produtos
     public static String excluir(int id) {
         return dao.excluir(id);
     }
-
-    public static List<ProdutoModel> list() {
+    
+    //Método para Listar produto
+    public static List<ProdutoVO> list() {
         return dao.Listar();
     }
-
-    public static List<ProdutoModel> pesquisar(String nome) {
+    //Método para Listar pesquisar
+    public static List<ProdutoVO> pesquisar(String nome) {
         return dao.pesquisar(nome);
     }
-
-    public static void baixaNoEstoque(List<ProdutoModel> carrinho) {
+    //Método para dar baixa no estoque
+    public static void baixaNoEstoque(List<ProdutoVO> carrinho) {
         dao.baixaNoEstoque(carrinho);
     }
-
-    public List<ProdutoModel> pesquisarNomeProduto(String nome) {
+    
+    ////Método para Listar pesquisar nome do produto
+    public List<ProdutoVO> pesquisarNomeProduto(String nome) {
         return dao.pesquisarNomeProduto(nome);
 
     }
   
-
-    public void alterarProduto(ProdutoModel p, int id) {
+    //Método para alterar o produto
+    public void alterarProduto(ProdutoVO p, int id) {
         dao.alterarProduto(p,id);
     }
 }

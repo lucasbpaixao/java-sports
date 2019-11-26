@@ -1,6 +1,6 @@
 package Dao;
 
-import Model.ProdutoModel;
+import Model.ProdutoVO;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
 
 public class ProdutoDao {
 
-    public List<ProdutoModel> Listar() {
+    public List<ProdutoVO> Listar() {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-        List<ProdutoModel> produtos = new ArrayList<>();
+        List<ProdutoVO> produtos = new ArrayList<>();
         try {
             conexao = DAOFactory.conexao();
 
@@ -35,7 +35,7 @@ public class ProdutoDao {
 
             while (resultado.next()) {
 
-                ProdutoModel produtus = new ProdutoModel(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
 
                 produtos.add(produtus);
 
@@ -49,9 +49,9 @@ public class ProdutoDao {
         return produtos;
     }
 
-    static ArrayList<ProdutoModel> produto = new ArrayList();
+    static ArrayList<ProdutoVO> produto = new ArrayList();
 
-    public String cadastroDeProdutos(ProdutoModel contato) {
+    public String cadastroDeProdutos(ProdutoVO contato) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
@@ -72,9 +72,11 @@ public class ProdutoDao {
         return "Cadastrado com sucesso";
     }
 
-//public String numeroDeCadastros() {
-    //return produto.size() + "";
-    //}
+    /**
+     * @deprecated //public String numeroDeCadastros() {
+    return produto.size() + "";}
+     */
+
     public static String excluir(int id) {
 
         Connection conexao = null;
@@ -99,15 +101,15 @@ public class ProdutoDao {
         return retorno;
     }
 
-    public List<ProdutoModel> list() {
+    public List<ProdutoVO> list() {
 
         return produto;
     }
 
-    public List<ProdutoModel> pesquisar(String nome) {
+    public List<ProdutoVO> pesquisar(String nome) {
 
-        ArrayList<ProdutoModel> pesquisar = new ArrayList();
-        for (ProdutoModel produtoVO : produto) {
+        ArrayList<ProdutoVO> pesquisar = new ArrayList();
+        for (ProdutoVO produtoVO : produto) {
             if (produtoVO.getProduto().toUpperCase().equals(nome.toUpperCase())) {
                 pesquisar.add(produtoVO);
             }
@@ -117,11 +119,11 @@ public class ProdutoDao {
         return pesquisar;
     }
 
-    public void baixaNoEstoque(List<ProdutoModel> carrinho) {
+    public void baixaNoEstoque(List<ProdutoVO> carrinho) {
 
-        for (ProdutoModel produtoVenda : carrinho) {
+        for (ProdutoVO produtoVenda : carrinho) {
             int index = 0;
-            for (ProdutoModel produtoReal : produto) {
+            for (ProdutoVO produtoReal : produto) {
 
                 if (produtoReal.getId() == produtoVenda.getId()) {
                     int quantidade = (produtoReal.getQuantidade() - produtoVenda.getQuantidadeVendida());
@@ -136,10 +138,10 @@ public class ProdutoDao {
 
     }
 
-    public List<ProdutoModel> pesquisarNomeProduto(String nome) {
+    public List<ProdutoVO> pesquisarNomeProduto(String nome) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-        List<ProdutoModel> produtos = new ArrayList<>();
+        List<ProdutoVO> produtos = new ArrayList<>();
         try {
             conexao = DAOFactory.conexao();
 
@@ -149,7 +151,7 @@ public class ProdutoDao {
 
             while (resultado.next()) {
 
-                ProdutoModel produtus = new ProdutoModel(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
 
                 produtos.add(produtus);
 
@@ -163,7 +165,7 @@ public class ProdutoDao {
         return produtos;
     }
 
-    public void alterarProduto(ProdutoModel p,int id) {
+    public void alterarProduto(ProdutoVO p,int id) {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
