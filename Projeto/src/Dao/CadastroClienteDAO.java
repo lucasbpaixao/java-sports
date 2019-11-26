@@ -18,7 +18,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -30,9 +29,20 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author raul.stbarreto
+ * @see Controller.CadastroClienteController
+ * @see DAOFactory.DAOFactory
+ * @see Model.CadastroClienteModel
+ * @see View.CadastroClienteView
  */
 public class CadastroClienteDAO {
 
+    /**
+     * Metodo para cadastrar um cliente no banco
+     * @param a - CadastroClienteModel
+     * @throws ParseException
+     * @throws SQLException
+     * @return String
+     */
     public static String Cadastro(CadastroClienteModel a) throws ParseException, SQLException {
         if(CadastroClienteView.CPFigual(a.getCpf())){
         Connection conexao = null;
@@ -73,6 +83,11 @@ public class CadastroClienteDAO {
        
     }
 
+    /**
+     * Metodo para excluir um cliente no banco
+     * @param cpf - long
+     * @return String
+     */
     public static String Excluir(long cpf) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -93,6 +108,14 @@ public class CadastroClienteDAO {
         return "Excluido com sucesso";
     }
 
+    /**
+     * Metodo para Alterar um cliente no banco
+     * @param a - CadastroClienteModel
+     * @param linha - int
+     * @throws ParseException
+     * @throws SQLException
+     * @return String
+     */
     public static String alterar(CadastroClienteModel a, int linha) throws ParseException, SQLException {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -133,6 +156,10 @@ public class CadastroClienteDAO {
         return "Alterado com sucesso";
     }
 
+    /**
+     * Metodo para listar os clientes do banco
+     * @return List
+     */
     public static List<CadastroClienteModel> listar(){
          Connection conexao = null;
         PreparedStatement instrucaoSQL = null;

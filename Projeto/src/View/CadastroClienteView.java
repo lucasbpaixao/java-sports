@@ -30,6 +30,9 @@ import java.util.logging.Logger;
 /**
  *
  * @author raul.stbarreto
+ * @see Controller.CadastroClienteController
+ * @see Model.CadastroClienteModel
+ * @see DAOFactory.DAOFactory
  */
 public class CadastroClienteView extends javax.swing.JFrame {
 
@@ -605,6 +608,15 @@ public class CadastroClienteView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton10ActionPerformed
 
+    /**
+     * Metodo de cadastro de cliente apartir do clique do botão
+     * @throws Se o campo de nome não for preenchido corretamente
+     * @throws Se o campo de sobrenome não for preenchido corretamente
+     * @throws Campos Nome, Sobrenome, Sexo, CPF e Campos de Endereço são obrigatórios
+     * @throws Validador de CPF pode gerar excessões
+     * @throws ParseException
+     * @throws printStackTrace
+     */
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         if (validaPreenchimento()) {
             if (validaNome() && validaSobrenome()) {
@@ -648,16 +660,25 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
+    /**
+     * Metodo de Exclusão de cliente apartir do clique do botão
+     */
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         long cpf = Long.parseLong(jtable.getModel().getValueAt(jtable.getSelectedRow(), 0).toString().replace(".", "").replace("-", ""));
         JOptionPane.showMessageDialog(this, CadastroClienteController.excluir(cpf));
         CarregarBanco();
     }//GEN-LAST:event_btnExcluirActionPerformed
 
+    /**
+     * Metodo de Limpar todos os campos do formulário de cadastro apartir do clique do botão
+     */
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         limpaFormulario();
     }//GEN-LAST:event_btnLimparActionPerformed
 
+     /**
+     * Metodo Metodo para Preencher os campos do formulário com as informações da linha do jtable selecionada apartir do clique do botão
+     */
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
 
         txtCPF.setText(jtable.getModel().getValueAt(jtable.getSelectedRow(), 0).toString());
@@ -680,6 +701,15 @@ public class CadastroClienteView extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
+    /**
+     * Metodo de Atualização de cliente apartir do clique do botão
+     * @throws Se o campo de nome não for preenchido corretamente
+     * @throws Se o campo de sobrenome não for preenchido corretamente
+     * @throws Campos Nome, Sobrenome, Sexo, CPF e Campos de Endereço são obrigatórios
+     * @throws Validador de CPF pode gerar excessões
+     * @throws ParseException
+     * @throws printStackTrace
+     */
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         if (validaPreenchimento()) {
             if (validaNome() && validaSobrenome()) {
@@ -729,12 +759,18 @@ public class CadastroClienteView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    /**
+     * Metodo para carregar os registros cadastrados no banco e lista no jtable apartir do clique do botão
+     */
     private void btnCarregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregarActionPerformed
         limpaFormulario();
         CarregarBanco();
         
     }//GEN-LAST:event_btnCarregarActionPerformed
 
+    /**
+     * Metodo para carregar o cliente que possa estar cadastrado no banco filtrando por CPF, e lista no jtable apartir do clique do botão
+     */
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
         pesquisar(Long.parseLong(txtPesquisar.getText().replace(".", "").replace("-", "")));
     }//GEN-LAST:event_btnPesquisarActionPerformed
@@ -789,6 +825,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Metodo para carregar os registros cadastrados no banco e lista no jtable
+     */
    public void CarregarBanco(){
        DefaultTableModel model = (DefaultTableModel) jtable.getModel();
         List<CadastroClienteModel> lista = CadastroClienteController.listar();
@@ -805,6 +844,10 @@ public class CadastroClienteView extends javax.swing.JFrame {
             }
    }
 
+    /**
+     * Metodo para carregar o cliente que possa estar cadastrado no banco filtrando por CPF, e lista no jtable
+     * @param cpf - long
+     */
     public void pesquisar(long cpf) {
         limparTabela();
 
@@ -839,6 +882,12 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo para validar se o CPF inserido já foi cadastrado anteriormente
+     * @param cpf - long
+     * @return boolean - true: não cadastrado; false: cadastrado
+     * @throws SQLException
+     */
     public static boolean CPFigual(long cpf) throws SQLException {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -861,6 +910,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo para limpar todos os valores do jtable
+     */
     public void limparTabela() {
         DefaultTableModel tmClientes = (DefaultTableModel) jtable.getModel();
         for (int i = jtable.getRowCount() - 1; i >= 0; i--) {
@@ -868,6 +920,9 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo para limpar todos os campos do formulario de cadastro
+     */
     public void limpaFormulario() {
         txtNome.setText("");
         txtSobrenome.setText("");
@@ -887,6 +942,10 @@ public class CadastroClienteView extends javax.swing.JFrame {
         btnCadastrar.setEnabled(true);
     }
 
+    /**
+     * Metodo para validar se o campo de nome foi preenchido corretamente
+     * @return boolean - true: Nome aceito; false: Nome não aceito
+     */
     public boolean validaNome() {
         String rE = "[A-Z]{1}[a-z]+";
         String nome = txtNome.getText();
@@ -899,6 +958,10 @@ public class CadastroClienteView extends javax.swing.JFrame {
         return b;
     }
 
+    /**
+     * Metodo para validar se o campo de nome foi preenchido corretamente
+     * @return boolean - true: sobrenome aceito; false: sobrenome não aceito
+     */
     public boolean validaSobrenome() {
         String rE = "[A-Z]{1}[a-z]+";
         String nome = txtSobrenome.getText();
@@ -911,6 +974,10 @@ public class CadastroClienteView extends javax.swing.JFrame {
         return b;
     }
 
+    /**
+     * Metodo para validar se os campos obrigatórios foram preenchidos
+     * @return boolean - true: formulário aceito; false: formulário não aceito
+     */
     public boolean validaPreenchimento() {
         if (("".equals(txtNome.getText())) || ("".equals(txtSobrenome.getText())) || ("".equals(txtCPF.getText()))
                 || ("".equals(txtCidade.getText())) || ("".equals(txtCEP.getText())) || ("".equals(txtNumero.getText()))
@@ -921,6 +988,11 @@ public class CadastroClienteView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo para validar se o CPF realmente é valido
+     * @param cpf - String
+     * @return boolean - true: CPF aceito; false: CPF não aceito
+     */
     public boolean validaCpfCliente(String cpf) {
 		boolean retorno = true;
 			
