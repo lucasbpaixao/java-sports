@@ -9,6 +9,7 @@ package View;
 import Controller.AnaliticoController;
 import Controller.CadastroClienteController;
 import static Controller.CadastroClienteController.listar;
+import Controller.PesquisaCpfController;
 import Controller.ProdutoController;
 import Controller.RelatorioController;
 import Dao.RelatorioDAO;
@@ -16,6 +17,7 @@ import Model.AnaliticoVO;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.CadastroClienteModel;
+import Model.PesquisaCpfVO;
 import Model.ProdutoVO;
 import Model.Relatorio;
 import java.awt.event.ActionListener;
@@ -31,6 +33,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JTable;
+import javax.swing.table.TableColumn;
 
 /**
  * @author Daniel Leite da Silva
@@ -80,6 +83,7 @@ public class RelatorioView extends javax.swing.JFrame {
          * @throw
          */
         DefaultTableModel search = (DefaultTableModel) jTable1.getModel();
+        JTable novaT = new JTable(search);
 
         float total = 0.0f;
         int count = 0;
@@ -92,7 +96,7 @@ public class RelatorioView extends javax.swing.JFrame {
             /**
              * seta o cabecalho da tabela
              */
-            search.setColumnIdentifiers(new Object[]{"CPF", "Cliente", "Data", "Valor"});
+            search.setColumnIdentifiers(new Object[]{"ID Venda", "Cliente", "Data", "Valor"});
 
             /**
              * @Interador para limpar os dados da tabela
@@ -107,7 +111,7 @@ public class RelatorioView extends javax.swing.JFrame {
             for (Relatorio r : lista) {
                 String valor = "R$ " + df.format(r.getValorTotal());
                 String novaData = dateFormat.format(r.getData());
-                search.addRow(new Object[]{r.getCpf(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
+                search.addRow(new Object[]{r.getIdVenda(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
                 total += r.getValorTotal();
                 count += r.getTotalItens();
             }
@@ -157,6 +161,24 @@ public class RelatorioView extends javax.swing.JFrame {
          */
         return itens;
     }
+    /**
+     * @method para pegar o cpf
+     */
+    public static String pegaCPf(String id){
+        /**
+         * @param value seta o valor obtido no id
+         * @param cpf armazena o cpf
+         */
+        String value = "";
+        List<PesquisaCpfVO> cpf = PesquisaCpfController.pesquisaCPF(id);
+        for (PesquisaCpfVO c : cpf) {
+             value = String.valueOf(c.getCpf());
+        }
+        /**
+         * @return retorna o cpf 
+         */
+        return value;
+    } 
 
     /**
      * @method para exibir dados da view
@@ -643,8 +665,8 @@ public class RelatorioView extends javax.swing.JFrame {
                     /**
                      * seta o cabecalho da tabela
                      */
-                    search.setColumnIdentifiers(new Object[]{"CPF", "Cliente", "Data", "Valor"});
-
+                    search.setColumnIdentifiers(new Object[]{"ID Venda", "Cliente", "Data", "Valor"});
+                    
                     /**
                      * @Interador para limpar os dados da tabela
                      */
@@ -665,7 +687,7 @@ public class RelatorioView extends javax.swing.JFrame {
                         //Lista tudo que está entre as datas setadas
                         if (millis >= inicio.getTime() && millis <= fim.getTime()) {
                             String valor = "R$ " + df.format(r.getValorTotal());
-                            search.addRow(new Object[]{r.getCpf(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
+                            search.addRow(new Object[]{r.getIdVenda(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
                             total += r.getValorTotal();
                             count += r.getTotalItens();
                         }
@@ -678,7 +700,6 @@ public class RelatorioView extends javax.swing.JFrame {
                      * informações zeradas e uma mensagem dizendo que não há
                      * valores a serem listados
                      */
-                    
                     if (total == 0) {
                         jLabel5.setText("R$ 0,00");
                         jLabel3.setText(String.valueOf(0));
@@ -708,16 +729,13 @@ public class RelatorioView extends javax.swing.JFrame {
         carregaDados();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-     /**
+    /**
      * @method para carregar o relatório analítico
      */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        /**
-         * @param indice armazena informação da linha da tabela
-         */
-        indice = jTable1.getSelectedRow();
 
+        indice = jTable1.getSelectedRow();
+        
         /**
          * Verifica se a linha foi clicada e carrega o form analítico
          */
@@ -729,7 +747,8 @@ public class RelatorioView extends javax.swing.JFrame {
                 analitico.setVisible(true);
                 analitico.setResizable(false);
             } else {
-                model = jTable1.getValueAt(indice, 0).toString();
+                String id = jTable1.getValueAt(indice, 0).toString();
+                model = pegaCPf(id);
                 analitico.setLocationRelativeTo(null);
                 analitico.setVisible(true);
                 analitico.setResizable(false);
