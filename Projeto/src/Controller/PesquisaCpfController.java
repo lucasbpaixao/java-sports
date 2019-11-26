@@ -6,7 +6,7 @@
 package Controller;
 
 import Dao.PesquisaCpfDAO;
-import Model.PesquisaCpfVO;
+import Model.PesquisaCpfModel;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class PesquisaCpfController {
 
-    public static List<PesquisaCpfVO> pesquisaCPF(String id) {
+    public static List<PesquisaCpfModel> pesquisaCPF(String id) {
         PesquisaCpfDAO cpfDAO;
         cpfDAO = new PesquisaCpfDAO();
         try {

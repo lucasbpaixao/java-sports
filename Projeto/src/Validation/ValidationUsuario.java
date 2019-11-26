@@ -12,8 +12,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- *
- * @author esouzaf
+ * @author – Ederson Souza
+ * @see – n/a
+ * @param – JTextField txtlogin, JTextField txtnome, JTextField txtemail,
+ * JPasswordField txtsenha
+ * @return – boolean - true: sucesso , false: falha
+ * @throws – N/A
  */
 public class ValidationUsuario {
 
@@ -36,6 +40,13 @@ public class ValidationUsuario {
 
     }
 
+    /**
+     * @author – Ederson Souza
+     * @see – n/a
+     * @param – email
+     * @return – boolean - true: sucesso , false: falha
+     * @throws – N/A
+     */
     public boolean validarEmailUsuario(String email) {
         boolean emailValidado = false;
 
@@ -52,6 +63,5 @@ public class ValidationUsuario {
         return emailValidado;
 
     }
-    
-    
+
 }

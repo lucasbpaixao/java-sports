@@ -12,13 +12,13 @@ import java.util.List;
  *
  * @author lucas
  */
-public class Venda {
+public class VendaModel {
     
     /**
      * Variaveis
      */
     private int id;
-    private List<ProdutoVO> carrinho;
+    private List<ProdutoModel> carrinho;
     private CadastroClienteModel cliente;
 
     /**
@@ -63,7 +63,7 @@ public class Venda {
      * Getter
      * @return List
      */
-    public List<ProdutoVO> getCarrinho() {
+    public List<ProdutoModel> getCarrinho() {
         return carrinho;
     }
 
@@ -71,7 +71,7 @@ public class Venda {
      * Setter
      * @param carrinho - List
      */
-    public void setCarrinho(List<ProdutoVO> carrinho) {
+    public void setCarrinho(List<ProdutoModel> carrinho) {
         this.carrinho = carrinho;
     }
 

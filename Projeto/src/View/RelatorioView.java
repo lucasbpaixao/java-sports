@@ -13,13 +13,13 @@ import Controller.PesquisaCpfController;
 import Controller.ProdutoController;
 import Controller.RelatorioController;
 import Dao.RelatorioDAO;
-import Model.AnaliticoVO;
+import Model.AnaliticoModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import Model.CadastroClienteModel;
-import Model.PesquisaCpfVO;
-import Model.ProdutoVO;
-import Model.Relatorio;
+import Model.PesquisaCpfModel;
+import Model.ProdutoModel;
+import Model.RelatorioModel;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -44,10 +44,10 @@ import javax.swing.table.TableColumn;
  * @see Controller.ProdutoController
  * @see Controller.RelatorioController
  * @see Dao.RelatorioDAO
- * @see Model.AnaliticoVO
+ * @see Model.AnaliticoModel
  * @see Model.CadastroClienteModel
- * @see Model.ProdutoVO
- * @see Model.Relatorio
+ * @see Model.ProdutoModel
+ * @see Model.RelatorioModel
  */
 public class RelatorioView extends javax.swing.JFrame {
 
@@ -91,7 +91,7 @@ public class RelatorioView extends javax.swing.JFrame {
             /**
              * Recupera dados do controller para lista na tabela
              */
-            List<Relatorio> lista = RelatorioController.list();
+            List<RelatorioModel> lista = RelatorioController.list();
 
             /**
              * seta o cabecalho da tabela
@@ -108,7 +108,7 @@ public class RelatorioView extends javax.swing.JFrame {
             /**
              * @Interador para listar dados na tabela
              */
-            for (Relatorio r : lista) {
+            for (RelatorioModel r : lista) {
                 String valor = "R$ " + df.format(r.getValorTotal());
                 String novaData = dateFormat.format(r.getData());
                 search.addRow(new Object[]{r.getIdVenda(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
@@ -147,13 +147,13 @@ public class RelatorioView extends javax.swing.JFrame {
         /**
          * Recupera dados do controller para lista na tabela
          */
-        List<AnaliticoVO> listarIntens = AnaliticoController.contarIntensRelatorio();
+        List<AnaliticoModel> listarIntens = AnaliticoController.contarIntensRelatorio();
         int itens = 0;
 
         /**
          * @Interador para contar intens e armazenar na variavel
          */
-        for (AnaliticoVO r : listarIntens) {
+        for (AnaliticoModel r : listarIntens) {
             itens += r.getQuantidade();
         }
         /**
@@ -170,8 +170,8 @@ public class RelatorioView extends javax.swing.JFrame {
          * @param cpf armazena o cpf
          */
         String value = "";
-        List<PesquisaCpfVO> cpf = PesquisaCpfController.pesquisaCPF(id);
-        for (PesquisaCpfVO c : cpf) {
+        List<PesquisaCpfModel> cpf = PesquisaCpfController.pesquisaCPF(id);
+        for (PesquisaCpfModel c : cpf) {
              value = String.valueOf(c.getCpf());
         }
         /**
@@ -660,7 +660,7 @@ public class RelatorioView extends javax.swing.JFrame {
                 int count = 0;
                 try {
                     //Retorna a lista obtida no controller
-                    List<Relatorio> lista = RelatorioController.list();
+                    List<RelatorioModel> lista = RelatorioController.list();
 
                     /**
                      * seta o cabecalho da tabela
@@ -677,7 +677,7 @@ public class RelatorioView extends javax.swing.JFrame {
                     /**
                      * @Interador para listar dados na tabela
                      */
-                    for (Relatorio r : lista) {
+                    for (RelatorioModel r : lista) {
                         //Formata a data
                         String novaData = dateFormat.format(r.getData());
                         //Armazena nova data

@@ -6,10 +6,10 @@
 package Dao;
 
 /*Importação de bibliotecas para funcionamento do sistema*/
-import Model.Relatorio;
+import Model.RelatorioModel;
 import java.util.ArrayList;
 import DAOFactory.DAOFactory;
-import Model.Venda;
+import Model.VendaModel;
 import View.RelatorioView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,17 +20,17 @@ import java.util.List;
 /**
  *
  * @author Daniel Leite da Silva
- * @see Model.Relatorio
+ * @see Model.RelatorioModel
  * @see DAOFactory.DAOFactory
  * @see View.RelatorioView
- * @see Model.Venda
+ * @see Model.VendaModel
  */
 public class RelatorioDAO {
 
     /**
      * @deprecated relatorio é um array list responsável por armazenar dados;
      */
-    public static List<Relatorio> relatorio = new ArrayList();
+    public static List<RelatorioModel> relatorio = new ArrayList();
 
     /**
      * @method RelatorioDAO construtor
@@ -43,7 +43,7 @@ public class RelatorioDAO {
     /**
      * @method Listar obtém os dados do banco de dados serem listados.
      */
-    public List<Relatorio> Listar() throws SQLException {
+    public List<RelatorioModel> Listar() throws SQLException {
 
         /**
          * @param conexao inicia a conexao com banco de dados.
@@ -60,7 +60,7 @@ public class RelatorioDAO {
          * @param relatorios arrayList responsavel por armazenar os dados
          * obtidos na execucao da query.
          */
-        List<Relatorio> relatorios = new ArrayList<>();
+        List<RelatorioModel> relatorios = new ArrayList<>();
 
         /**
          * @throw Lança exceção caso não consiga conectar ao banco.
@@ -89,7 +89,7 @@ public class RelatorioDAO {
                  * @param rel passa a ser do tipo objeto. Nele é setado o
                  * resultado obtido na model Relatorio.
                  */
-                Relatorio rel = new Relatorio(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
+                RelatorioModel rel = new RelatorioModel(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
 
                 /**
                  * @param relatorios recebe os dados listados.
@@ -116,7 +116,7 @@ public class RelatorioDAO {
     /**
      * @method listarAnalitico lista todos os dados para mostrar na view.
      */
-    public List<Relatorio> ListarAnalitico(String id) throws SQLException {
+    public List<RelatorioModel> ListarAnalitico(String id) throws SQLException {
 
         /**
          * @param conexao inicia a conexao com banco de dados.
@@ -133,7 +133,7 @@ public class RelatorioDAO {
          * @param relatorios arrayList responsavel por armazenar os dados
          * obtidos na execucao da query.
          */
-        List<Relatorio> relatorios = new ArrayList<>();
+        List<RelatorioModel> relatorios = new ArrayList<>();
 
         /**
          * @throw Lança exceção caso não consiga conectar ao banco.
@@ -162,7 +162,7 @@ public class RelatorioDAO {
                  * resultado obtido na model Relatorio.
                  */
 
-                Relatorio rel = new Relatorio(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
+                RelatorioModel rel = new RelatorioModel(res.getInt("idVenda"), res.getString("nome"), res.getDate("dataVenda"), res.getFloat("total"), res.getLong("cpfCliente"), res.getInt("contador"), res.getString("sobrenome"));
                 
                 /**
                  * @param relatorios recebe os dados listados.

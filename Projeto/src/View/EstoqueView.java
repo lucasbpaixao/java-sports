@@ -6,7 +6,7 @@
 package View;
 
 import Controller.ProdutoController;
-import Model.ProdutoVO;
+import Model.ProdutoModel;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -288,8 +288,8 @@ public class EstoqueView extends javax.swing.JFrame {
             }
         }
 
-        List<ProdutoVO> lis = ProdutoController.list();
-        for (ProdutoVO p : lis) {
+        List<ProdutoModel> lis = ProdutoController.list();
+        for (ProdutoModel p : lis) {
             codigo = "" + p.getId() + "";
             String produto = p.getProduto();
             String preco = "" + p.getPreco() + "";
@@ -304,7 +304,7 @@ public class EstoqueView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         ProdutoController c = new ProdutoController();
-        List<ProdutoVO> pesquisa = c.pesquisarNomeProduto(dado);
+        List<ProdutoModel> pesquisa = c.pesquisarNomeProduto(dado);
 
         if (model.getRowCount() > 0) {
             for (int i = model.getRowCount() - 1; i >= 0; i--) {
@@ -312,7 +312,7 @@ public class EstoqueView extends javax.swing.JFrame {
             }
         }
 
-        for (ProdutoVO p : pesquisa) {
+        for (ProdutoModel p : pesquisa) {
             String codigo = "" + p.getId() + "";
             String produto = p.getProduto();
             String preco = "" + p.getPreco() + "";

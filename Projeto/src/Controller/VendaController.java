@@ -6,13 +6,13 @@
 package Controller;
 
 import Dao.VendaDao;
-import Model.Venda;
+import Model.VendaModel;
 
 /**
  *
  * @author lucas
  * @see Dao.VendaDao
- * @see Model.Venda
+ * @see Model.VendaModel
  */
 public class VendaController {
 
@@ -23,9 +23,9 @@ public class VendaController {
     
     /**
      * Metodo para pegar as informações da venda e passar para o metodo do DAO
-     * @param venda - Venda
+     * @param venda - VendaModel
      */
-    public static void cadastrarVenda(Venda venda) {
+    public static void cadastrarVenda(VendaModel venda) {
         dao.cadastrarVenda(venda);
     }
     

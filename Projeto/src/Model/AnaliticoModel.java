@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author Daniel Leite da Silva
  */
-public class AnaliticoVO {
+public class AnaliticoModel {
 
     /**
      * @params seta valores obtidos através do construtor.
@@ -27,7 +27,7 @@ public class AnaliticoVO {
     /**
      * @method metodo construtor para armazenar variávies
      */
-    public AnaliticoVO(long cpf, String nome, String sobrenome, int quantidade, String produto, float valor) {
+    public AnaliticoModel(long cpf, String nome, String sobrenome, int quantidade, String produto, float valor) {
 
         /**
          * @params Armazena dados por referência na classe

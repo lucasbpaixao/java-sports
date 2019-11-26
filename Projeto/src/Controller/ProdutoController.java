@@ -7,7 +7,7 @@ package Controller;
 
 import Dao.ProdutoDao;
 
-import Model.ProdutoVO;
+import Model.ProdutoModel;
 import java.util.List;
 
 /**
@@ -18,7 +18,7 @@ public class ProdutoController {
 
     static ProdutoDao dao = new ProdutoDao();
 
-    public static void cadastroDeProdutos(ProdutoVO produto) {
+    public static void cadastroDeProdutos(ProdutoModel produto) {
         dao.cadastroDeProdutos(produto);
     }
 
@@ -26,25 +26,25 @@ public class ProdutoController {
         return dao.excluir(id);
     }
 
-    public static List<ProdutoVO> list() {
+    public static List<ProdutoModel> list() {
         return dao.Listar();
     }
 
-    public static List<ProdutoVO> pesquisar(String nome) {
+    public static List<ProdutoModel> pesquisar(String nome) {
         return dao.pesquisar(nome);
     }
 
-    public static void baixaNoEstoque(List<ProdutoVO> carrinho) {
+    public static void baixaNoEstoque(List<ProdutoModel> carrinho) {
         dao.baixaNoEstoque(carrinho);
     }
 
-    public List<ProdutoVO> pesquisarNomeProduto(String nome) {
+    public List<ProdutoModel> pesquisarNomeProduto(String nome) {
         return dao.pesquisarNomeProduto(nome);
 
     }
   
 
-    public void alterarProduto(ProdutoVO p, int id) {
+    public void alterarProduto(ProdutoModel p, int id) {
         dao.alterarProduto(p,id);
     }
 }

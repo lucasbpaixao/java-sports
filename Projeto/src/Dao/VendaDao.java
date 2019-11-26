@@ -6,8 +6,8 @@
 package Dao;
 
 import DAOFactory.DAOFactory;
-import Model.ProdutoVO;
-import Model.Venda;
+import Model.ProdutoModel;
+import Model.VendaModel;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -24,17 +24,17 @@ import javax.swing.JOptionPane;
  *
  * @author lucas
  * @see DAOFactory.DAOFactory
- * @see Model.ProdutoVO;
- * @see Model.Venda
+ * @see Model.ProdutoModel
+ * @see Model.VendaModel
  */
 public class VendaDao {
 
     /**
      * Metodo para fazer o cadastro da venda no banco
-     * @param venda - Venda
+     * @param venda - VendaModel
      * @throws printStackTrace
      */
-    public void cadastrarVenda(Venda venda) {
+    public void cadastrarVenda(VendaModel venda) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
@@ -59,7 +59,7 @@ public class VendaDao {
                     id = generatedKeys.getInt(1);
                 } 
             }
-            for (ProdutoVO p : venda.getCarrinho()) {
+            for (ProdutoModel p : venda.getCarrinho()) {
                 instrucaoSQL = conexao.prepareStatement("INSERT INTO carrinho (idVenda, idProduto, quantidadeVendida) values (?,?,?)");
 
                 instrucaoSQL.setInt(1, id);

@@ -9,9 +9,31 @@ package Model;
  *
  * @author ederson.sfreitas
  */
-public class LoginVO {
+public class UsuarioModel {
+
+    private int codigoUsuario;
+    private String nome;
     private String login;
     private String senha;
+    private String email;
+    
+    
+    
+    public int getCodigoUsuario() {
+        return codigoUsuario;
+    }
+
+    public void setCodigoUsuario(int codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
     public String getLogin() {
         return login;
@@ -28,7 +50,14 @@ public class LoginVO {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
     
     
     

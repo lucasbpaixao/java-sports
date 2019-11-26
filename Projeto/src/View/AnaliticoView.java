@@ -8,8 +8,8 @@ package View;
 /*Importação de bibliotecas para funcionamento do sistema*/
 import Controller.AnaliticoController;
 import Controller.RelatorioController;
-import Model.AnaliticoVO;
-import Model.Relatorio;
+import Model.AnaliticoModel;
+import Model.RelatorioModel;
 import View.RelatorioView;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -23,8 +23,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Daniel Leite da Silva
  * @see Controller.AnaliticoController
  * @see Controller.RelatorioController
- * @see Model.AnaliticoVO
- * @see Model.Relatorio
+ * @see Model.AnaliticoModel
+ * @see Model.RelatorioModel
  * @see View.RelatorioView
  */
 public class AnaliticoView extends javax.swing.JFrame {
@@ -62,7 +62,7 @@ public class AnaliticoView extends javax.swing.JFrame {
             /**
              * @param lista seta os valores obtidos do listaAnalítico. 
              */
-            List<AnaliticoVO> lista = AnaliticoController.listaAnalitico(valor);
+            List<AnaliticoModel> lista = AnaliticoController.listaAnalitico(valor);
             
             /**
              * @Interador para limpar os dados da tabela
@@ -73,7 +73,7 @@ public class AnaliticoView extends javax.swing.JFrame {
             /**
              * @Interador para carregar dados na tabela
              */
-            for (AnaliticoVO d : lista) {
+            for (AnaliticoModel d : lista) {
                 resultado = "R$ " + df.format(d.getValor());
                 result.addRow(new Object[]{d.getNome() + " " + d.getSobrenome(), d.getProduto(), resultado, d.getQuantidade()});
             }

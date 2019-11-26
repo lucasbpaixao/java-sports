@@ -8,10 +8,12 @@ package Validation;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-/**
- *
- * @author esouzaf
- */
+  /**
+    @author – Ederson Souza
+    @see – n/a
+    @param – JTextField txtEmail, JTextField txtLogin
+    @return – boolean - true: sucesso , false: falha
+    @throws – N/A*/
 public class ValidationEsquecerSenha {
 
     public boolean validarCampos(JTextField txtEmail, JTextField txtLogin) {

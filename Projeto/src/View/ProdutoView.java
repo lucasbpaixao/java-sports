@@ -2,7 +2,7 @@ package View;
 
 import Controller.ProdutoController;
 import Dao.ProdutoDao;
-import Model.ProdutoVO;
+import Model.ProdutoModel;
 import Validation.ValidationProduto;
 import View.CadastroClienteView;
 import View.EstoqueView;
@@ -33,13 +33,13 @@ public class ProdutoView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         TFpreco.setDocument(new validacaopreco());
 
-        List<ProdutoVO> lista = ProdutoController.list();
+        List<ProdutoModel> lista = ProdutoController.list();
         DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
 
         for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
             model.removeRow(i);
         }
-        for (ProdutoVO List : lista) {
+        for (ProdutoModel List : lista) {
             model.addRow(new String[]{String.valueOf(List.getId()), List.getProduto(), String.valueOf(List.getPreco()), String.valueOf(List.getQuantidade())});
         }
     }
@@ -427,17 +427,17 @@ public class ProdutoView extends javax.swing.JFrame {
             String preco = TFpreco.getText();
             String quantidade = String.valueOf(TFquantidade.getValue());
 
-            ProdutoVO c = new ProdutoVO(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
+            ProdutoModel c = new ProdutoModel(produto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
 
             ProdutoController.cadastroDeProdutos(c);
 
-            List<ProdutoVO> lista = ProdutoController.list();
+            List<ProdutoModel> lista = ProdutoController.list();
             DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
 
             for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
                 model.removeRow(i);
             }
-            for (ProdutoVO telinh : lista) {
+            for (ProdutoModel telinh : lista) {
                 model.addRow(new String[]{String.valueOf(telinh.getId()), telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
             }
 
@@ -531,12 +531,12 @@ public class ProdutoView extends javax.swing.JFrame {
         DefaultTableModel dados = (DefaultTableModel) Tabela.getModel();
         ProdutoController controller = new ProdutoController();
 
-        List<ProdutoVO> lista = controller.pesquisarNomeProduto(nome);
+        List<ProdutoModel> lista = controller.pesquisarNomeProduto(nome);
 
         for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
             dados.removeRow(i);
         }
-        for (ProdutoVO produtoVO : lista) {
+        for (ProdutoModel produtoVO : lista) {
 
             String codigo = Integer.toString(produtoVO.getId());
             String preco = Double.toString(produtoVO.getPreco());
@@ -550,22 +550,22 @@ public class ProdutoView extends javax.swing.JFrame {
     private void listar() {
         DefaultTableModel model = (DefaultTableModel) Tabela.getModel();
         if (!JBpesquisar.getText().equals("") && JBpesquisar.getText() != null) {
-            List<ProdutoVO> Pesquisinha = ProdutoController.pesquisar(JBpesquisar.getText());
+            List<ProdutoModel> Pesquisinha = ProdutoController.pesquisar(JBpesquisar.getText());
 
             for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
                 model.removeRow(i);
             }
-            for (ProdutoVO produtoVO : Pesquisinha) {
+            for (ProdutoModel produtoVO : Pesquisinha) {
                 model.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
             }
 
         } else {
-            List<ProdutoVO> lista = ProdutoController.list();
+            List<ProdutoModel> lista = ProdutoController.list();
 
             for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
                 model.removeRow(i);
             }
-            for (ProdutoVO telinh : lista) {
+            for (ProdutoModel telinh : lista) {
                 model.addRow(new String[]{String.valueOf(telinh.getId()), telinh.getProduto(), String.valueOf(telinh.getPreco()), String.valueOf(telinh.getQuantidade())});
             }
         }
@@ -578,18 +578,18 @@ public class ProdutoView extends javax.swing.JFrame {
         String preco = TFpreco.getText();
         String quantidade = String.valueOf(TFquantidade.getValue());
 
-        ProdutoVO p = new ProdutoVO(nomeProduto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
+        ProdutoModel p = new ProdutoModel(nomeProduto, Double.parseDouble(preco), Integer.parseInt(quantidade), 0, 0);
 
         ProdutoController controller = new ProdutoController();
         controller.alterarProduto(p, id);
 
         DefaultTableModel dados = (DefaultTableModel) Tabela.getModel();
 
-        List<ProdutoVO> lista = ProdutoController.list();
+        List<ProdutoModel> lista = ProdutoController.list();
         for (int i = Tabela.getRowCount() - 1; i >= 0; i--) {
             dados.removeRow(i);
         }
-        for (ProdutoVO produtoVO : lista) {
+        for (ProdutoModel produtoVO : lista) {
 
             dados.addRow(new String[]{String.valueOf(produtoVO.getId()), produtoVO.getProduto(), String.valueOf(produtoVO.getPreco()), String.valueOf(produtoVO.getQuantidade())});
         }

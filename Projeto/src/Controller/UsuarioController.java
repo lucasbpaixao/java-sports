@@ -6,15 +6,20 @@
 package Controller;
 
 import Dao.UsuarioDAO;
-import Model.UsuarioVO;
+import Model.UsuarioModel;
 
-/**
- *
- * @author ederson.sfreitas
- */
+ /**
+    @author – Ederson Souza
+    @see – UsuarioDAO
+    @param – UsuarioModel
+    @return – void
+    @throws – Exception*/
+
+/*@link Dao.UsuarioDAO#cadastrarUsuario*/
+
 public class UsuarioController {
 
-    public void cadastrarUsuario(UsuarioVO usuario) throws Exception {
+    public void cadastrarUsuario(UsuarioModel usuario) throws Exception {
         UsuarioDAO usuarioDAO = new UsuarioDAO();
         usuarioDAO.cadastrarUsuario(usuario);
     }

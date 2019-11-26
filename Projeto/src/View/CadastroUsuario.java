@@ -6,7 +6,7 @@
 package View;
 
 import Controller.UsuarioController;
-import Model.UsuarioVO;
+import Model.UsuarioModel;
 import Validation.ValidationUsuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -281,11 +281,23 @@ public class CadastroUsuario extends javax.swing.JFrame {
     private void txtnomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnomeActionPerformed
-
+/**
+    @author – Ederson Souza
+    @see – UsuarioVO usuario = new UsuarioVO();
+    @param – n/a
+    @return – n/a
+    @throws – N/A*/
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try {
-            UsuarioVO usuario = new UsuarioVO();
+            UsuarioModel usuario = new UsuarioModel();
             String email = txtemail.getText();
+            
+            /**
+    @author – Ederson Souza
+    @see – ValidationUsuario - LoginView
+    @param – txtlogin, txtnome, txtemail, txtsenha
+    @return – n/a
+    @throws – Exception*/
             ValidationUsuario usuarioValidation = new ValidationUsuario();
             if (usuarioValidation.validarCampos(txtlogin, txtnome, txtemail, txtsenha)) {
                 if (usuarioValidation.validarEmailUsuario(email)) {
@@ -380,7 +392,7 @@ public class CadastroUsuario extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cadastrar() throws Exception {
-        UsuarioVO usuario = new UsuarioVO();
+        UsuarioModel usuario = new UsuarioModel();
 
         usuario.setLogin(txtlogin.getText());
         usuario.setNome(txtnome.getText());

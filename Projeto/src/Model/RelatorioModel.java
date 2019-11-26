@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * @author Daniel Leite da Silva
  */
-public class Relatorio {
+public class RelatorioModel {
     
     /**
      * @params seta valores obtidos através do construtor.
@@ -27,7 +27,7 @@ public class Relatorio {
     /**
      * @method metodo construtor para armazenar variávies
      */
-    public Relatorio(int id, String nome, Date data, float valor, long cpf, int totalItens, String sobrenome) {
+    public RelatorioModel(int id, String nome, Date data, float valor, long cpf, int totalItens, String sobrenome) {
 
          /**
          * @params Armazena dados por referência na classe

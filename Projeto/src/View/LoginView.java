@@ -6,7 +6,7 @@
 package View;
 
 import Controller.LoginController;
-import Model.LoginVO;
+import Model.LoginModel;
 import Validation.ValidationLogin;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -322,7 +322,7 @@ public class LoginView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void logar() throws Exception {
-        LoginVO loginVO = new LoginVO();
+        LoginModel loginVO = new LoginModel();
         loginVO.setLogin(txtLogin.getText());
         loginVO.setSenha(txtSenha.getText());
 

@@ -9,10 +9,10 @@ package Model;
  *
  * @author oz500
  */
-public class PesquisaCpfVO {
+public class PesquisaCpfModel {
     private long cpf;
     
-    public PesquisaCpfVO(long cpf){
+    public PesquisaCpfModel(long cpf){
         this.cpf = cpf;
     }
 

@@ -6,7 +6,7 @@
 package Dao;
 
 import DAOFactory.DAOFactory;
-import Model.PesquisaCpfVO;
+import Model.PesquisaCpfModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class PesquisaCpfDAO {
     
-    public List<PesquisaCpfVO> pesquisaCpf(String id) throws SQLException {
+    public List<PesquisaCpfModel> pesquisaCpf(String id) throws SQLException {
         /**
          * @param conexao inicia a conexao com banco de dados.
          */
@@ -36,7 +36,7 @@ public class PesquisaCpfDAO {
          * @param relatorios arrayList responsavel por armazenar os dados obtidos
          * na execucao da query.
          */
-        List<PesquisaCpfVO> relatorios = new ArrayList<>();
+        List<PesquisaCpfModel> relatorios = new ArrayList<>();
 
         /**
          * @throw Lança exceção caso não consiga conectar ao banco.
@@ -63,7 +63,7 @@ public class PesquisaCpfDAO {
                  * @param resultado passa a ser do tipo objeto. Nele é setado o
                  * resultado obtido na model AnaliticoVO.
                  */
-                PesquisaCpfVO resultado = new PesquisaCpfVO(res.getLong("cpfCliente"));
+                PesquisaCpfModel resultado = new PesquisaCpfModel(res.getLong("cpfCliente"));
 
                 /**
                  * @param relatorios recebe os dados listados.

@@ -10,9 +10,11 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 /**
- *
- * @author esouzaf
- */
+    @author – Ederson Souza
+    @see – n/a
+    @param – JTextField txtLogin, JPasswordField txtSenha
+    @return – boolean - true: sucesso , false: falha
+    @throws – N/A*/
 public class ValidationLogin {
 
     public boolean validarCampos(JTextField txtLogin, JPasswordField txtSenha) {

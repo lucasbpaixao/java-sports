@@ -6,16 +6,20 @@
 package Controller;
 
 import Dao.LoginDAO;
-import Model.LoginVO;
+import Model.LoginModel;
 import java.sql.SQLException;
 
-/**
- *
- * @author ederson.sfreitas
- */
+ /**
+    @author – Ederson Souza
+    @see – LoginModel
+    @param – esquecerSenha
+    @return – void
+    @throws – Exception*/
+
+/*@link Dao.LoginDAO#logar*/
 public class LoginController {
 
-    public boolean logar(LoginVO loginVO) throws Exception {
+    public boolean logar(LoginModel loginVO) throws Exception {
       LoginDAO loginDAO = new LoginDAO();
       return loginDAO.logar(loginVO);
     }

@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import DAOFactory.DAOFactory;
 import Email.JavaMailApp;
-import Model.EsquecerSenhaVO;
+import Model.EsquecerSenhaModel;
 
 public class EsquecerSenhaDAO {
 
@@ -18,8 +18,13 @@ public class EsquecerSenhaDAO {
 	public EsquecerSenhaDAO() throws Exception {
 		this.connection = DAOFactory.conexao();
 	}
-
-	public void criarSenha(EsquecerSenhaVO esquecerSenha) throws Exception {
+         /**
+    @author – Ederson Souza
+    @see – EsquecerSenhaVO
+    @param – esquecerSenha
+    @return – void
+    @throws – Exception*/
+	public void criarSenha(EsquecerSenhaModel esquecerSenha) throws Exception {
 		Random gerador = new Random();
 
 		gerador.nextInt(9);

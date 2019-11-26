@@ -6,7 +6,7 @@
 package View;
 
 import Controller.EsquecerSenhaController;
-import Model.EsquecerSenhaVO;
+import Model.EsquecerSenhaModel;
 import Validation.ValidationEsquecerSenha;
 import Validation.ValidationUsuario;
 import java.util.logging.Level;
@@ -135,12 +135,24 @@ public class EsquecerSenhaView extends javax.swing.JFrame {
         login.setVisible(true);
         dispose();
     }//GEN-LAST:event_jLabel4MouseClicked
-
+   /**
+    @author – Ederson Souza
+    @see – ValidationUsuario - ValidationEsquecerSenha
+    @param – n/a
+    @return – Especifica qual o tipo de retorno de um método
+    @throws – Exception*/
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
 
             ValidationUsuario usuarioValidation = new ValidationUsuario();
-            EsquecerSenhaVO esquecerSenhaVO = new EsquecerSenhaVO();
+            EsquecerSenhaModel esquecerSenhaVO = new EsquecerSenhaModel();
+            
+             /**
+    @author – Ederson Souza
+    @see – ValidationEsquecerSenha
+    @param – txtEmail, txtLogin
+    @return – n/a
+    @throws – Exception*/
             ValidationEsquecerSenha esquecerSenhaValidation = new ValidationEsquecerSenha();
             String email = txtEmail.getText();
             if (esquecerSenhaValidation.validarCampos(txtEmail, txtLogin)) {
@@ -199,9 +211,15 @@ public class EsquecerSenhaView extends javax.swing.JFrame {
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtLogin;
     // End of variables declaration//GEN-END:variables
-
+    
+    /**
+    @author – Ederson Souza
+    @see – EsquecerSenhaVO - EsquecerSenhaController
+    @param – n/a
+    @return – void
+    @throws – Exception*/
     private void criarSenha() throws Exception {
-        EsquecerSenhaVO esquecerSenha = new EsquecerSenhaVO();
+        EsquecerSenhaModel esquecerSenha = new EsquecerSenhaModel();
         esquecerSenha.setLogin(txtLogin.getText());
         esquecerSenha.setEmail(txtEmail.getText());
 

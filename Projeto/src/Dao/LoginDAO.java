@@ -6,7 +6,7 @@
 package Dao;
 
 import DAOFactory.DAOFactory;
-import Model.LoginVO;
+import Model.LoginModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,7 +25,14 @@ public class LoginDAO {
         this.connection = DAOFactory.conexao();
     }
 
-    public boolean logar(LoginVO loginVO) throws SQLException {
+    /**
+     * @author – Ederson Souza
+     * @see – LoginVO
+     * @param – loginVO
+     * @return – boolean - true: sucesso , false: falha
+     * @throws – SQLException
+     */
+    public boolean logar(LoginModel loginVO) throws SQLException {
         boolean retorno = false;
         PreparedStatement preparedStatement = this.connection.prepareStatement("Select * from usuario where login = ? and senha = MD5(?)");
 

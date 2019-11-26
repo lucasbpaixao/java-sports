@@ -6,7 +6,7 @@
 package Dao;
 
 import DAOFactory.DAOFactory;
-import Model.UsuarioVO;
+import Model.UsuarioModel;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,8 +23,13 @@ public class UsuarioDAO {
     public UsuarioDAO() throws Exception {
         this.connection = DAOFactory.conexao();
     }
-
-    public void cadastrarUsuario(UsuarioVO usuario) throws SQLException {
+/**
+    @author – Ederson Souza
+    @see – UsuarioVO
+    @param – esquecerSenha
+    @return – void
+    @throws – SQLException*/
+    public void cadastrarUsuario(UsuarioModel usuario) throws SQLException {
 
         PreparedStatement preparedStatement = this.connection.prepareStatement("Insert into usuario (nomeUsuario,login,senha,email) values (?,?,MD5(?),?)");
 

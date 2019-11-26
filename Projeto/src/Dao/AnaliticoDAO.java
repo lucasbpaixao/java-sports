@@ -6,11 +6,11 @@
 package Dao;
 
 /*Importação de bibliotecas para funcionamento do sistema*/
-import Model.Relatorio;
+import Model.RelatorioModel;
 import java.util.ArrayList;
 import DAOFactory.DAOFactory;
-import Model.AnaliticoVO;
-import Model.Venda;
+import Model.AnaliticoModel;
+import Model.VendaModel;
 import View.RelatorioView;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,10 +21,10 @@ import java.util.List;
 /**
  *
  * @author Daniel Leite da Silva
- * @see Model.Relatorio
+ * @see Model.RelatorioModel
  * @see DAOFactory.DAOFactory
- * @see Model.AnaliticoVO
- * @see Model.Venda
+ * @see Model.AnaliticoModel
+ * @see Model.VendaModel
  * @see View.RelatorioView
  */
 public class AnaliticoDAO {
@@ -32,7 +32,7 @@ public class AnaliticoDAO {
     /**
      * @deprecated relatorio é um array list responsável por armazenar dados;
      */
-    public static List<AnaliticoVO> relatorio = new ArrayList();
+    public static List<AnaliticoModel> relatorio = new ArrayList();
 
     /**
      * @method AnaliticoDAO construtor
@@ -50,7 +50,7 @@ public class AnaliticoDAO {
      */
     
 
-    public List<AnaliticoVO> ListarAnalitico(String id) throws SQLException {
+    public List<AnaliticoModel> ListarAnalitico(String id) throws SQLException {
         /**
          * @param conexao inicia a conexao com banco de dados.
          */
@@ -66,7 +66,7 @@ public class AnaliticoDAO {
          * @param relatorios arrayList responsavel por armazenar os dados obtidos
          * na execucao da query.
          */
-        List<AnaliticoVO> relatorios = new ArrayList<>();
+        List<AnaliticoModel> relatorios = new ArrayList<>();
 
         /**
          * @throw Lança exceção caso não consiga conectar ao banco.
@@ -100,7 +100,7 @@ public class AnaliticoDAO {
                  * @param resultado passa a ser do tipo objeto. Nele é setado o
                  * resultado obtido na model AnaliticoVO.
                  */
-                AnaliticoVO resultado = new AnaliticoVO(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
+                AnaliticoModel resultado = new AnaliticoModel(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
 
                 /**
                  * @param relatorios recebe os dados listados.
@@ -127,7 +127,7 @@ public class AnaliticoDAO {
     /**
      * @method contarItens obtém a quantidade no banco de dados a serem listados.
      */
-    public List<AnaliticoVO> contarItens() throws SQLException {
+    public List<AnaliticoModel> contarItens() throws SQLException {
         
         /**
          * @param conexao inicia a conexao com banco de dados.
@@ -145,7 +145,7 @@ public class AnaliticoDAO {
          * @param relatorios arrayList responsavel por armazenar os dados obtidos
          * na execucao da query.
          */
-        List<AnaliticoVO> relatorios = new ArrayList<>();
+        List<AnaliticoModel> relatorios = new ArrayList<>();
         
         /**
          * @throw Lança exceção caso não consiga conectar ao banco.
@@ -185,7 +185,7 @@ public class AnaliticoDAO {
                  * resultado obtido na model AnaliticoVO.
                  */
                 
-                AnaliticoVO resultado = new AnaliticoVO(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
+                AnaliticoModel resultado = new AnaliticoModel(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
                 
                 /**
                  * @param relatorios recebe os dados listados.

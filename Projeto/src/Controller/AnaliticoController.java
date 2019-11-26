@@ -3,8 +3,8 @@ package Controller;
 /*Importação de bibliotecas para funcionamento do sistema*/
 import Dao.AnaliticoDAO;
 import Dao.RelatorioDAO;
-import Model.AnaliticoVO;
-import Model.Relatorio;
+import Model.AnaliticoModel;
+import Model.RelatorioModel;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -25,7 +25,7 @@ public class AnaliticoController {
     /**
      * @param id informa o dado que deve ser buscado no banco de dados
      */
-    public static List<AnaliticoVO> listaAnalitico(String id) throws SQLException {
+    public static List<AnaliticoModel> listaAnalitico(String id) throws SQLException {
         /**
          * @param dao responsável por armazenar os dados obtidos do banco de
          * dados através da DAO.
@@ -52,7 +52,7 @@ public class AnaliticoController {
      * @method Método responsável por listar quantidade de produtos vendidos, obtendo os
      * dados do banco de dados.
     */
-    public static List<AnaliticoVO> contarIntensRelatorio() throws SQLException {
+    public static List<AnaliticoModel> contarIntensRelatorio() throws SQLException {
         /**
          * @param dao responsável por armazenar os dados obtidos do banco de
          * dados através da DAO.

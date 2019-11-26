@@ -1,6 +1,6 @@
 package Model;
 
-public class EsquecerSenhaVO {
+public class EsquecerSenhaModel {
 
 	private String login;
 	private String parametro;

@@ -9,8 +9,8 @@ import Controller.CadastroClienteController;
 import Controller.VendaController;
 import Controller.ProdutoController;
 import Model.CadastroClienteModel;
-import Model.ProdutoVO;
-import Model.Venda;
+import Model.ProdutoModel;
+import Model.VendaModel;
 import com.sun.xml.internal.bind.v2.runtime.JAXBContextImpl;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -24,18 +24,18 @@ import javax.swing.table.DefaultTableModel;
  * @author lucas.sbpaixao
  * @see Controller.CadastroClienteController
  * @see Controller.VendaController
- * @see Model.ProdutoVO
+ * @see Model.ProdutoModel
  * @see Controller.ProdutoController
  * @see Model.CadastroClienteModel
- * @see Model.Venda
+ * @see Model.VendaModel
  */
 public class VendasView extends javax.swing.JFrame {
 
     /**
      * Variaveis
      */
-    private List<ProdutoVO> produtos;
-    private List<ProdutoVO> carrinho;
+    private List<ProdutoModel> produtos;
+    private List<ProdutoModel> carrinho;
     private List<CadastroClienteModel> clientes;
     private int[][] quantidadesAtuais;
 
@@ -378,7 +378,7 @@ public class VendasView extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
 
         String id = String.valueOf(comboProduto.getSelectedItem()).substring(0, 1);
-        ProdutoVO produto = new ProdutoVO("", 0, 0, 0,0);
+        ProdutoModel produto = new ProdutoModel("", 0, 0, 0,0);
         produto = acharProduto(Integer.parseInt(id));
 
         int quantidade = Integer.parseInt(String.valueOf(spinnerQtd.getValue()));
@@ -446,7 +446,7 @@ public class VendasView extends javax.swing.JFrame {
      * Limpa o model
      */
     private void JBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBFinalizarActionPerformed
-        Venda venda = new Venda();
+        VendaModel venda = new VendaModel();
 
         venda.setCarrinho(carrinho);
         venda.setData(new Date(System.currentTimeMillis()));
@@ -462,7 +462,7 @@ public class VendasView extends javax.swing.JFrame {
             return;
         }
 
-        for (ProdutoVO produto : carrinho) {
+        for (ProdutoModel produto : carrinho) {
             System.out.println(produto.getProduto());
         }
 
@@ -570,15 +570,15 @@ public class VendasView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void preencherCombo() {
-        for (ProdutoVO produto : produtos) {
+        for (ProdutoModel produto : produtos) {
             comboProduto.addItem(produto.getId() + " - " + produto.getProduto());
         }
 
     }
 
-    private ProdutoVO acharProduto(int id) {
+    private ProdutoModel acharProduto(int id) {
 
-        for (ProdutoVO produto : produtos) {
+        for (ProdutoModel produto : produtos) {
             char idProduto = (char) produto.getId();
             if (idProduto == id) {
                 return produto;
@@ -607,7 +607,7 @@ public class VendasView extends javax.swing.JFrame {
 
     private void populaMatriz() {
         int i = 0;
-        for (ProdutoVO p : produtos) {
+        for (ProdutoModel p : produtos) {
             quantidadesAtuais[i][0] = p.getId();
             quantidadesAtuais[i][1] = p.getQuantidade();
             i++;

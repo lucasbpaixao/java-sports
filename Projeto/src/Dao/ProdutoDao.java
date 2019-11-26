@@ -1,6 +1,6 @@
 package Dao;
 
-import Model.ProdutoVO;
+import Model.ProdutoModel;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,11 +21,11 @@ import javax.swing.JOptionPane;
 
 public class ProdutoDao {
 
-    public List<ProdutoVO> Listar() {
+    public List<ProdutoModel> Listar() {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-        List<ProdutoVO> produtos = new ArrayList<>();
+        List<ProdutoModel> produtos = new ArrayList<>();
         try {
             conexao = DAOFactory.conexao();
 
@@ -35,7 +35,7 @@ public class ProdutoDao {
 
             while (resultado.next()) {
 
-                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+                ProdutoModel produtus = new ProdutoModel(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
 
                 produtos.add(produtus);
 
@@ -49,9 +49,9 @@ public class ProdutoDao {
         return produtos;
     }
 
-    static ArrayList<ProdutoVO> produto = new ArrayList();
+    static ArrayList<ProdutoModel> produto = new ArrayList();
 
-    public String cadastroDeProdutos(ProdutoVO contato) {
+    public String cadastroDeProdutos(ProdutoModel contato) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
@@ -99,15 +99,15 @@ public class ProdutoDao {
         return retorno;
     }
 
-    public List<ProdutoVO> list() {
+    public List<ProdutoModel> list() {
 
         return produto;
     }
 
-    public List<ProdutoVO> pesquisar(String nome) {
+    public List<ProdutoModel> pesquisar(String nome) {
 
-        ArrayList<ProdutoVO> pesquisar = new ArrayList();
-        for (ProdutoVO produtoVO : produto) {
+        ArrayList<ProdutoModel> pesquisar = new ArrayList();
+        for (ProdutoModel produtoVO : produto) {
             if (produtoVO.getProduto().toUpperCase().equals(nome.toUpperCase())) {
                 pesquisar.add(produtoVO);
             }
@@ -117,11 +117,11 @@ public class ProdutoDao {
         return pesquisar;
     }
 
-    public void baixaNoEstoque(List<ProdutoVO> carrinho) {
+    public void baixaNoEstoque(List<ProdutoModel> carrinho) {
 
-        for (ProdutoVO produtoVenda : carrinho) {
+        for (ProdutoModel produtoVenda : carrinho) {
             int index = 0;
-            for (ProdutoVO produtoReal : produto) {
+            for (ProdutoModel produtoReal : produto) {
 
                 if (produtoReal.getId() == produtoVenda.getId()) {
                     int quantidade = (produtoReal.getQuantidade() - produtoVenda.getQuantidadeVendida());
@@ -136,10 +136,10 @@ public class ProdutoDao {
 
     }
 
-    public List<ProdutoVO> pesquisarNomeProduto(String nome) {
+    public List<ProdutoModel> pesquisarNomeProduto(String nome) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
-        List<ProdutoVO> produtos = new ArrayList<>();
+        List<ProdutoModel> produtos = new ArrayList<>();
         try {
             conexao = DAOFactory.conexao();
 
@@ -149,7 +149,7 @@ public class ProdutoDao {
 
             while (resultado.next()) {
 
-                ProdutoVO produtus = new ProdutoVO(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
+                ProdutoModel produtus = new ProdutoModel(resultado.getString("nomeProduto"), resultado.getDouble("valor"), resultado.getInt("quantidade"), 0, resultado.getInt("idProduto"));
 
                 produtos.add(produtus);
 
@@ -163,7 +163,7 @@ public class ProdutoDao {
         return produtos;
     }
 
-    public void alterarProduto(ProdutoVO p,int id) {
+    public void alterarProduto(ProdutoModel p,int id) {
 
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
