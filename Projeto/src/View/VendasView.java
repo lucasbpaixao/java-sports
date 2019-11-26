@@ -22,17 +22,26 @@ import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author lucas.sbpaixao
+ * @see Controller.CadastroClienteController
+ * @see Controller.VendaController
+ * @see Model.ProdutoVO
+ * @see Controller.ProdutoController
+ * @see Model.CadastroClienteModel
+ * @see Model.Venda
  */
 public class VendasView extends javax.swing.JFrame {
 
     /**
-     * Creates new form Vendas
+     * Variaveis
      */
     private List<ProdutoVO> produtos;
     private List<ProdutoVO> carrinho;
     private List<CadastroClienteModel> clientes;
     private int[][] quantidadesAtuais;
 
+    /**
+     * Creates new form Vendas
+     */
     public VendasView() {
         initComponents();
         setLocationRelativeTo(null);
@@ -347,6 +356,10 @@ public class VendasView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Metodo para adicionar uma venda ao model "carrinho"
+     * Contem validações caso campos forem nulos ou divergencias de estoque
+     */
     private void JBAddCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBAddCarrinhoActionPerformed
 
         if (tabela.getRowCount() == 0) {
@@ -391,6 +404,9 @@ public class VendasView extends javax.swing.JFrame {
         spinnerQtd.setValue(1);
     }//GEN-LAST:event_JBAddCarrinhoActionPerformed
 
+    /**
+     * Metodo para limpar formulario
+     */
     public void limpar() {
         comboProduto.setSelectedIndex(0);
         spinnerQtd.setValue(1);
@@ -401,6 +417,9 @@ public class VendasView extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnClienteActionPerformed
 
+    /**
+     * Metodo para cancelar compra e limpar formulario
+     */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         txtCPF.setText("");
         txtCPF.enable(true);
@@ -420,6 +439,12 @@ public class VendasView extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnProdutoActionPerformed
 
+    /**
+     * Metodo para concluir uma venda
+     * Contem validação de cliente existente por meio de CPF
+     * Chama o metodo de cadastro de venda do controller
+     * Limpa o model
+     */
     private void JBFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBFinalizarActionPerformed
         Venda venda = new Venda();
 

@@ -23,9 +23,17 @@ import javax.swing.JOptionPane;
 /**
  *
  * @author lucas
+ * @see DAOFactory.DAOFactory
+ * @see Model.ProdutoVO;
+ * @see Model.Venda
  */
 public class VendaDao {
 
+    /**
+     * Metodo para fazer o cadastro da venda no banco
+     * @param venda - Venda
+     * @throws printStackTrace
+     */
     public void cadastrarVenda(Venda venda) {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
