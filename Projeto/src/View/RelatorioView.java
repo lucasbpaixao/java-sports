@@ -5,6 +5,7 @@
  */
 package View;
 
+/*Importação de bibliotecas para funcionamento do sistema*/
 import Controller.AnaliticoController;
 import Controller.CadastroClienteController;
 import static Controller.CadastroClienteController.listar;
@@ -32,11 +33,31 @@ import javax.swing.JDialog;
 import javax.swing.JTable;
 
 /**
- *
- * @author esouzaf
+ * @author Daniel Leite da Silva
+ * @see Controller.AnaliticoController
+ * @see Controller.CadastroClienteController
+ * @see Controller.CadastroClienteController.listar
+ * @see Controller.ProdutoController
+ * @see Controller.ProdutoController
+ * @see Controller.RelatorioController
+ * @see Dao.RelatorioDAO
+ * @see Model.AnaliticoVO
+ * @see Model.CadastroClienteModel
+ * @see Model.ProdutoVO
+ * @see Model.Relatorio
  */
 public class RelatorioView extends javax.swing.JFrame {
 
+    /**
+     * @param jTable retorna tabela do RelatorioView
+     * @param resultado
+     * @param indice armazenar indices da linha
+     * @param model setar valores da linha
+     * @param valor arrayList
+     * @param analitico objeto analiticoView
+     * @param df formatar valor
+     * @param dateFormat formatar data
+     */
     private Object jTable;
     public String resultado = null;
     public int indice;
@@ -46,18 +67,43 @@ public class RelatorioView extends javax.swing.JFrame {
     DecimalFormat df = new DecimalFormat("#,###.00");
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+    /**
+     * @method para carregar dados na tabela
+     */
     void carregaDados() {
+
+        /**
+         * @param search model da tabela para interar com os dados
+         * @param total valor total obtido
+         * @param count contar quantidade de itens
+         * @param lista listar dados para armazenar
+         * @throw
+         */
         DefaultTableModel search = (DefaultTableModel) jTable1.getModel();
 
         float total = 0.0f;
         int count = 0;
         try {
+            /**
+             * Recupera dados do controller para lista na tabela
+             */
             List<Relatorio> lista = RelatorioController.list();
 
+            /**
+             * seta o cabecalho da tabela
+             */
             search.setColumnIdentifiers(new Object[]{"CPF", "Cliente", "Data", "Valor"});
+
+            /**
+             * @Interador para limpar os dados da tabela
+             */
             for (int i = search.getRowCount() - 1; i >= 0; i--) {
                 search.removeRow(i);
             }
+
+            /**
+             * @Interador para listar dados na tabela
+             */
             for (Relatorio r : lista) {
                 String valor = "R$ " + df.format(r.getValorTotal());
                 String novaData = dateFormat.format(r.getData());
@@ -65,6 +111,12 @@ public class RelatorioView extends javax.swing.JFrame {
                 total += r.getValorTotal();
                 count += r.getTotalItens();
             }
+            /**
+             * Condicional que verifica se o total foi preenchido. Se preenchido
+             * retorna o jtable com a quantidade exibida e total. Caso
+             * contrário. Se não, retorna o jtable com informações zeradas e uma
+             * mensagem dizendo que não há valores a serem listados
+             */
             if (total == 0) {
                 jLabel5.setText("R$ 0,00");
                 jLabel3.setText(String.valueOf(0));
@@ -78,16 +130,37 @@ public class RelatorioView extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * @method para contar e exbir a quantidade de itens comprados.
+     */
     public static int contarIntens() throws SQLException {
+        /**
+         * @param itens quantidade de itens
+         * @param listarIntens armazena informações obtidas através da
+         * controller.
+         */
+
+        /**
+         * Recupera dados do controller para lista na tabela
+         */
         List<AnaliticoVO> listarIntens = AnaliticoController.contarIntensRelatorio();
         int itens = 0;
+
+        /**
+         * @Interador para contar intens e armazenar na variavel
+         */
         for (AnaliticoVO r : listarIntens) {
             itens += r.getQuantidade();
         }
-
+        /**
+         * @return retorna quantidade de itens comprados
+         */
         return itens;
     }
 
+    /**
+     * @method para exibir dados da view
+     */
     public RelatorioView() {
         initComponents();
         setLocationRelativeTo(null);
@@ -378,7 +451,7 @@ public class RelatorioView extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -434,7 +507,7 @@ public class RelatorioView extends javax.swing.JFrame {
                 .addGap(32, 32, 32))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 555, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -457,6 +530,7 @@ public class RelatorioView extends javax.swing.JFrame {
 
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel18.setForeground(new java.awt.Color(0, 0, 102));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Relatório");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -465,15 +539,12 @@ public class RelatorioView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
-                        .addComponent(jLabel18)
-                        .addGap(267, 267, 267))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(21, 21, 21))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,8 +552,8 @@ public class RelatorioView extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel18)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 387, Short.MAX_VALUE)
                 .addGap(65, 65, 65))
         );
 
@@ -518,47 +589,80 @@ public class RelatorioView extends javax.swing.JFrame {
         relatorio.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton4ActionPerformed
-
+    /**
+     * @method para pesquisar e listar com base nos parâmetros da data
+     */
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
 
+        /**
+         * @param total valor total obtido
+         * @param inicio Data inicial
+         * @param fim Data Final
+         * @param hoje Data de hoje
+         * @param count contar quantidade
+         * @param search armazena tabela
+         * @throw caso não consiga listar os dados
+         */
         DefaultTableModel search = (DefaultTableModel) jTable1.getModel();
         float total = 0.0f;
         Date inicio;
         Date fim;
         Date hoje = new Date(System.currentTimeMillis());
 
+        //Pega a data incial 
         inicio = jDateInicio.getDate();
+        //Pega a data incial 
         fim = jDateFim.getDate();
+        //Pega a data de hoje 
         long novoHoje = hoje.getTime();
 
+        //Verifica se os campos de data estão vazios
         if (inicio == null || fim == null) {
             JOptionPane.showMessageDialog(null, "Campos vazios");
+
+            //Carrega os dados
             carregaDados();
         } else {
+            //Verifica se a data inicial é maior que a final
             if (inicio.getTime() > fim.getTime()) {
                 jLabel5.setText("R$ 0,00");
                 jLabel3.setText("0");
                 JOptionPane.showMessageDialog(null, "A data inicial deve ser "
                         + "menor que a data final.\n Digite novamente.");
+                //Verifica se a data é maior que a de hoje.
             } else if (inicio.getTime() > novoHoje || fim.getTime() > novoHoje) {
                 JOptionPane.showMessageDialog(null, "A data não pode ser maior \n"
-                        + "que a data de hoje.");     
+                        + "que a data de hoje.");
             } else {
+                //Retorna tudo que foi comprado entra a data inicial e final 
                 int count = 0;
                 try {
+                    //Retorna a lista obtida no controller
                     List<Relatorio> lista = RelatorioController.list();
 
+                    /**
+                     * seta o cabecalho da tabela
+                     */
                     search.setColumnIdentifiers(new Object[]{"CPF", "Cliente", "Data", "Valor"});
 
+                    /**
+                     * @Interador para limpar os dados da tabela
+                     */
                     for (int i = search.getRowCount() - 1; i >= 0; i--) {
                         search.removeRow(i);
                     }
 
+                    /**
+                     * @Interador para listar dados na tabela
+                     */
                     for (Relatorio r : lista) {
+                        //Formata a data
                         String novaData = dateFormat.format(r.getData());
+                        //Armazena nova data
                         Date outraData = dateFormat.parse(novaData);
+                        //Converte a data obtida para millisegundos
                         long millis = outraData.getTime();
+                        //Lista tudo que está entre as datas setadas
                         if (millis >= inicio.getTime() && millis <= fim.getTime()) {
                             String valor = "R$ " + df.format(r.getValorTotal());
                             search.addRow(new Object[]{r.getCpf(), r.getNome() + " " + r.getSobrenome(), novaData, valor});
@@ -566,6 +670,15 @@ public class RelatorioView extends javax.swing.JFrame {
                             count += r.getTotalItens();
                         }
                     }
+
+                    /**
+                     * Condicional que verifica se o total foi preenchido. Se
+                     * preenchido retorna o jtable com a quantidade exibida e
+                     * total. Caso contrário. Se não, retorna o jtable com
+                     * informações zeradas e uma mensagem dizendo que não há
+                     * valores a serem listados
+                     */
+                    
                     if (total == 0) {
                         jLabel5.setText("R$ 0,00");
                         jLabel3.setText(String.valueOf(0));
@@ -585,6 +698,9 @@ public class RelatorioView extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    /**
+     * @method para limpar os dados setados nas datas
+     */
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
         jDateInicio.setDate(null);
@@ -592,10 +708,19 @@ public class RelatorioView extends javax.swing.JFrame {
         carregaDados();
     }//GEN-LAST:event_jButton6ActionPerformed
 
+     /**
+     * @method para carregar o relatório analítico
+     */
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
+        /**
+         * @param indice armazena informação da linha da tabela
+         */
         indice = jTable1.getSelectedRow();
 
+        /**
+         * Verifica se a linha foi clicada e carrega o form analítico
+         */
         if (indice == -1) {
             JOptionPane.showMessageDialog(null, "Não há linha selecionada.");
         } else {
@@ -610,6 +735,10 @@ public class RelatorioView extends javax.swing.JFrame {
                 analitico.setResizable(false);
             }
 
+            /**
+             * @method enviaDado() envia os dados obtidos na linha para a tabela
+             * analitico.
+             */
             analitico.enviaDado(this, model);
 
         }

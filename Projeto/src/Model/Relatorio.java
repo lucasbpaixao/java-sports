@@ -8,11 +8,14 @@ package Model;
 import java.util.Date;
 
 /**
- *
- * @author oz500
+ * @author Daniel Leite da Silva
  */
 public class Relatorio {
-
+    
+    /**
+     * @params seta valores obtidos através do construtor.
+     */
+    
     private int idVenda;
     private String nome;
     private Date data;
@@ -21,8 +24,15 @@ public class Relatorio {
     private long cpf;
     private String sobrenome;
 
+    /**
+     * @method metodo construtor para armazenar variávies
+     */
     public Relatorio(int id, String nome, Date data, float valor, long cpf, int totalItens, String sobrenome) {
 
+         /**
+         * @params Armazena dados por referência na classe
+         */
+        
         this.idVenda = id;
         this.nome = nome;
         this.data = data;
@@ -32,7 +42,11 @@ public class Relatorio {
         this.sobrenome = sobrenome;
 
     }
-
+    
+    /**
+     * @methods get and set para setar e retornar dados obtidos do construtor.
+     */
+    
     public void setIdVenda(int venda) {
         idVenda = venda;
     }

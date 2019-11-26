@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Controller;
 
+/*Importação de bibliotecas para funcionamento do sistema*/
 import Dao.AnaliticoDAO;
 import Dao.RelatorioDAO;
 import Model.AnaliticoVO;
@@ -15,28 +11,66 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
- * @author oz500
+ * @author Daniel Leite da Silva
+ * @see Dao.AnaliticoDAO
+ * @see Dao.RelatorioDAO
+ * @see Model.AnaliticoVO
+ * @see Model.Relatorio
  */
+
+/**
+* @method Método responsável por listar informações do banco de dados.
+*/
 public class AnaliticoController {
-    
-    public static List<AnaliticoVO> listaAnalitico(String id) throws SQLException{
+    /**
+     * @param id informa o dado que deve ser buscado no banco de dados
+     */
+    public static List<AnaliticoVO> listaAnalitico(String id) throws SQLException {
+        /**
+         * @param dao responsável por armazenar os dados obtidos do banco de
+         * dados através da DAO.
+         */
         AnaliticoDAO dao = null;
+
+        /**
+         * @throw caso não econtre a lista, ou quebre alguma instrução, irá lançar
+         * uma exceção, informando o tipo de erro que houve.
+         */
         try {
             dao = new AnaliticoDAO();
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /**
+         * @return retorna uma lista em um arrayList.
+         */
         return dao.ListarAnalitico(id);
     }
-    
-    public static List<AnaliticoVO> contarIntensRelatorio() throws SQLException{
+
+    /**
+     * @method Método responsável por listar quantidade de produtos vendidos, obtendo os
+     * dados do banco de dados.
+    */
+    public static List<AnaliticoVO> contarIntensRelatorio() throws SQLException {
+        /**
+         * @param dao responsável por armazenar os dados obtidos do banco de
+         * dados através da DAO.
+         */
         AnaliticoDAO dao = null;
+        
+        /**
+         * @throw caso não econtre a lista, quebre alguma instrução, irá lançar
+         * uma execeção, informando o tipo de erro que houve.
+         */
         try {
             dao = new AnaliticoDAO();
         } catch (SQLException ex) {
             Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /**
+         * @return retorna uma lista contendo a quantidade vendida em um arrayList 
+         */
         return dao.contarItens();
     }
 }

@@ -5,6 +5,7 @@
  */
 package Dao;
 
+/*Importação de bibliotecas para funcionamento do sistema*/
 import Model.Relatorio;
 import java.util.ArrayList;
 import DAOFactory.DAOFactory;
@@ -19,25 +20,63 @@ import java.util.List;
 
 /**
  *
- * @author oz500
+ * @author Daniel Leite da Silva
+ * @see Model.Relatorio
+ * @see DAOFactory.DAOFactory
+ * @see Model.AnaliticoVO
+ * @see Model.Venda
+ * @see View.RelatorioView
  */
 public class AnaliticoDAO {
 
+    /**
+     * @deprecated relatorio é um array list responsável por armazenar dados;
+     */
     public static List<AnaliticoVO> relatorio = new ArrayList();
 
+    /**
+     * @method AnaliticoDAO construtor
+     * @throws SQLException
+     */
     public AnaliticoDAO() throws SQLException {
 
     }
 
-    public List<AnaliticoVO> ListarAnalitico(String id) throws SQLException {
+    /**
+     * @param id recupera o valor setado na variável
+     * @return retorna um arrayList contendo os dados do banco de dados.
+     * @throws SQLException
+     * @method ListarAnalitico obtém os dados a serem listados no banco de dados.
+     */
+    
 
+    public List<AnaliticoVO> ListarAnalitico(String id) throws SQLException {
+        /**
+         * @param conexao inicia a conexao com banco de dados.
+         */
         Connection conexao = null;
+
+        /**
+         * @param instrucaoSQL prepara o statement para executar instruções do
+         * banco de dados.
+         */
         PreparedStatement instrucaoSQL = null;
+
+        /**
+         * @param relatorios arrayList responsavel por armazenar os dados obtidos
+         * na execucao da query.
+         */
         List<AnaliticoVO> relatorios = new ArrayList<>();
 
+        /**
+         * @throw Lança exceção caso não consiga conectar ao banco.
+         */
         try {
             conexao = DAOFactory.conexao();
-
+            /**
+             * @param instrucaoSQL recebe a conexao com statement setado,
+             * devolvendo os dados listados na query.
+             */
             instrucaoSQL = conexao.prepareStatement("select venda.cpfCliente, \n"
                     + "cliente.nome, \n"
                     + "cliente.sobrenome, \n"
@@ -45,35 +84,80 @@ public class AnaliticoDAO {
                     + "produto.nomeProduto, produto.valor from venda\n"
                     + "inner join carrinho on venda.idVenda = carrinho.idVenda\n"
                     + "inner join cliente on venda.cpfCliente = cliente.cpfCliente\n"
-                    + "inner join produto on carrinho.idProduto = produto.idProduto where venda.cpfCliente = "+id+";");
+                    + "inner join produto on carrinho.idProduto = produto.idProduto where venda.cpfCliente = " + id + ";");
 
+            /**
+             * @param res recebe a instrução para executar a query do banco.
+             */
             ResultSet res = instrucaoSQL.executeQuery();
 
+            /**
+             * Interador para recuperar os paramentos da query.
+             */
             while (res.next()) {
 
+                /**
+                 * @param resultado passa a ser do tipo objeto. Nele é setado o
+                 * resultado obtido na model AnaliticoVO.
+                 */
                 AnaliticoVO resultado = new AnaliticoVO(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
 
+                /**
+                 * @param relatorios recebe os dados listados.
+                 */
                 relatorios.add(resultado);
 
             }
 
+            /**
+             * @param instrucaoSQL executa a ação no banco de dados.
+             */
             instrucaoSQL.execute();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
+        /**
+         * @return retorna o arrayList relatorio
+         */
         return relatorios;
     }
     
+    /**
+     * @method contarItens obtém a quantidade no banco de dados a serem listados.
+     */
     public List<AnaliticoVO> contarItens() throws SQLException {
-
+        
+        /**
+         * @param conexao inicia a conexao com banco de dados.
+         */
         Connection conexao = null;
+        
+        /**
+         * @param instrucaoSQL prepara o statement para executar instruções do
+         * banco de dados.
+         */
+        
         PreparedStatement instrucaoSQL = null;
+        
+        /**
+         * @param relatorios arrayList responsavel por armazenar os dados obtidos
+         * na execucao da query.
+         */
         List<AnaliticoVO> relatorios = new ArrayList<>();
-
+        
+        /**
+         * @throw Lança exceção caso não consiga conectar ao banco.
+         */
         try {
+            
             conexao = DAOFactory.conexao();
+            
+            /**
+             * @param instrucaoSQL recebe a conexao com statement setado,
+             * devolvendo os dados listados na query.
+             */
 
             instrucaoSQL = conexao.prepareStatement("select venda.cpfCliente, \n"
                     + "cliente.nome, \n"
@@ -83,25 +167,46 @@ public class AnaliticoDAO {
                     + "inner join carrinho on venda.idVenda = carrinho.idVenda\n"
                     + "inner join cliente on venda.cpfCliente = cliente.cpfCliente\n"
                     + "inner join produto on carrinho.idProduto = produto.idProduto;");
-
+            
+             /**
+             * @param res recebe a instrução para executar a query do banco.
+             */
+            
             ResultSet res = instrucaoSQL.executeQuery();
-
+            
+            /**
+             * Interador para recuperar os paramentos da query.
+             */
+            
             while (res.next()) {
-
+                
+                 /**
+                 * @param resultado passa a ser do tipo objeto. Nele é setado o
+                 * resultado obtido na model AnaliticoVO.
+                 */
+                
                 AnaliticoVO resultado = new AnaliticoVO(res.getLong("cpfCliente"), res.getString("nome"), res.getString("sobrenome"), res.getInt("quantidadeVendida"), res.getString("nomeProduto"), res.getLong("valor"));
-
+                
+                /**
+                 * @param relatorios recebe os dados listados.
+                 */
                 relatorios.add(resultado);
 
             }
-
+            
+            /**
+             * @param instrucaoSQL executa a ação no banco de dados.
+             */
             instrucaoSQL.execute();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
-
+        
+        /**
+         * @return retorna o arrayList relatorio
+         */
         return relatorios;
     }
-    
 
 }

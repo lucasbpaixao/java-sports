@@ -5,6 +5,7 @@
  */
 package View;
 
+/*Importação de bibliotecas para funcionamento do sistema*/
 import Controller.AnaliticoController;
 import Controller.RelatorioController;
 import Model.AnaliticoVO;
@@ -19,29 +20,62 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author oz500
+ * @author Daniel Leite da Silva
+ * @see Controller.AnaliticoController
+ * @see Controller.RelatorioController
+ * @see Model.AnaliticoVO
+ * @see Model.Relatorio
+ * @see View.RelatorioView
  */
 public class AnaliticoView extends javax.swing.JFrame {
 
+    /**
+     * @param dado - objeto tipo RelatorioView
+     * @param df biblioteca para formatar valor
+     * @param resultado recebe string com valor em reais formatado
+     */
     private RelatorioView dado;
     DecimalFormat df = new DecimalFormat("#,###.00");
     String resultado;
-    
+
+    /**
+     * @method para exibir dados da view
+     */
     public AnaliticoView() {
         initComponents();
     }
 
+    /**
+     * @method metodo que recebe dados entre forms.
+     */
     void enviaDado(RelatorioView veio1, String valor) {
+        /**
+         * @param result recebe jtable 
+         */
         DefaultTableModel result = (DefaultTableModel) jTable1.getModel();
+        
+        /**
+         * @throw mostra um erro caso não liste os valores obtidos do analitico
+         * controler.
+         */
         try {
+            /**
+             * @param lista seta os valores obtidos do listaAnalítico. 
+             */
             List<AnaliticoVO> lista = AnaliticoController.listaAnalitico(valor);
+            
+            /**
+             * @Interador para limpar os dados da tabela
+             */
             for (int i = result.getRowCount() - 1; i >= 0; i--) {
                 result.removeRow(i);
             }
-
+            /**
+             * @Interador para carregar dados na tabela
+             */
             for (AnaliticoVO d : lista) {
-                 resultado = "R$ " + df.format(d.getValor());
-                result.addRow(new Object[]{d.getNome() + " "+ d.getSobrenome(), d.getProduto(), resultado, d.getQuantidade()});
+                resultado = "R$ " + df.format(d.getValor());
+                result.addRow(new Object[]{d.getNome() + " " + d.getSobrenome(), d.getProduto(), resultado, d.getQuantidade()});
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, "Houve um erro ao Listar os dados");
